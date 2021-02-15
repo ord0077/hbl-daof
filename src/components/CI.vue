@@ -4,19 +4,7 @@
 
 <v-container grid-list-xl>
     <v-layout wrap>
-<v-flex xs12 md4>
-<v-text-field class="red_class" :value="get_bd" v-model="name" :rules="GroupByRequired" label="Name (as per CNIC)"></v-text-field>
-</v-flex> 
-
-<v-flex xs6 md4>
-<v-text-field class="red_class" v-model="fathername" :rules="GroupByRequired" label="Father Name" :value="Caps"></v-text-field>
-</v-flex>
-
-<v-flex xs6 md4>
-<v-text-field class="red_class" v-model="mothername" :rules="GroupByRequired" label="Mother Maiden Name" :value="Caps"></v-text-field>
-</v-flex>
-
-<v-flex xs6 md6 class="dob">
+       <v-flex xs6 md6 class="dob">
 <v-text-field class="red_class" @change="get_basic_details" v-model.lazy="cnic" :rules="cnicRules" :counter="15" label="CNIC" placeholder="">
 </v-text-field>
 </v-flex>
@@ -41,6 +29,17 @@ v-model="date2"
 @change="menu2 = false"
 ></v-date-picker>
 </v-menu>
+</v-flex>
+<v-flex xs12 md4>
+<v-text-field class="red_class" readonly :value="get_bd" v-model="name" :rules="GroupByRequired" label="Name (as per CNIC)"></v-text-field>
+</v-flex> 
+
+<v-flex xs6 md4>
+<v-text-field class="red_class" v-model="fathername" :rules="GroupByRequired" label="Father Name" :value="Caps"></v-text-field>
+</v-flex>
+
+<v-flex xs6 md4>
+<v-text-field class="red_class" v-model="mothername" :rules="GroupByRequired" label="Mother Maiden Name" :value="Caps"></v-text-field>
 </v-flex>
 
 <v-flex xs12 class="dob">
@@ -107,11 +106,11 @@ v-model="date1"
    
 
     <v-flex xs6>
-    <v-text-field v-model="cell" :rules="cellRules" type="number" label="Mobile Number" :value="get_bd"></v-text-field>
+    <v-text-field readonly v-model="cell" :rules="cellRules" type="number" label="Mobile Number" :value="get_bd"></v-text-field>
     </v-flex>
 
     <v-flex xs6>
-    <v-text-field v-model="email" :rules="emailRules" label="E-mail" :value="get_bd"></v-text-field>
+    <v-text-field readonly v-model="email" :rules="emailRules" label="E-mail" :value="get_bd"></v-text-field>
     </v-flex>
 
     <v-flex xs12 md12>
@@ -434,10 +433,10 @@ computed:{
 
 get_bd(){
    return [
-         this.name = this.$store.state.name,
+         this.name = this.$store.state.name.toUpperCase(),
          this.cell = this.$store.state.cell,
          this.cnic = this.$store.state.cnic,
-         this.email = this.$store.state.email,
+         this.email = this.$store.state.email.toUpperCase(),
    ]
 }, 
 

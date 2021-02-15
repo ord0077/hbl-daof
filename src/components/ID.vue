@@ -31,17 +31,9 @@
 </v-flex>
 
 <v-flex md12>
-<v-autocomplete 
-v-model="fundname" 
-:items="funds" 
-item-text="PRD_NAME" item-value="PRD_PRODUCTCODE" 
-single-line 
-auto 
-:rules="fundnameRules"
-label="Name of Fund"
->
-</v-autocomplete>
+<v-text-field readonly :value="get_bd" v-model="fundname" :rules="fundnameRules" label="Name of Fund"></v-text-field>
 </v-flex>
+
 <v-flex xs12 md4>
 <v-text-field :rules="amountRules" v-model="amount" @keyup="amount_to_word" label="Amount" required></v-text-field>
 </v-flex>
@@ -272,6 +264,12 @@ import axios from 'axios'
 export default {
 computed:{
 
+get_bd(){
+   return [
+         this.fundname = this.$store.state.choosen_fund,
+   ]
+},   
+
 Caps(){
 return  {
     "accounttitle" : this.accounttitle = this.accounttitle.toUpperCase(),
@@ -344,15 +342,7 @@ Dividend_Pay_OutRules:[
 v => !!v || 'This field is required',      
 ],
 
-funds:[
-// {id:1,fundname:'HBL Cash Fund'},
-// {id:2,fundname:'HBL Money Market Fund'},
-// {id:3,fundname:'HBL Islamic Money Market Fund'},
-// {id:4,fundname:'HBL Government Securities Fund'},
-// {id:5,fundname:'HBL Income Fund'},
-// {id:6,fundname:'HBL Islamic Income Fund'},
-// {id:7,fundname:'HBL Islamic Asset Allocation Fund'}
-],
+funds:[],
 branchname:'',
 fundnameRules:[
 v => !!v || 'This field is required',
