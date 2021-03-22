@@ -154,7 +154,7 @@ label="Dividend pay-out"
 
 <v-flex>
 <h2>Do you currently hold US green card or US Permanent Residency?</h2>
-<v-radio-group class="display-5" @change="check_conflict" v-model="green_card">
+<v-radio-group class="display-5" v-model="green_card">
 <v-radio label="Yes" value="yes"></v-radio>
 <v-radio label="No" value="no"></v-radio>
 </v-radio-group>
@@ -162,7 +162,7 @@ label="Dividend pay-out"
 
 <v-flex>
 <h2>Are you a Tax Resident in the US?</h2>
-<v-radio-group class="display-5" @change="check_conflict" v-model="tax_resi">
+<v-radio-group class="display-5" v-model="tax_resi">
 <v-radio label="Yes" value="yes"></v-radio>
 <v-radio label="No" value="no"></v-radio>
 </v-radio-group>
@@ -266,7 +266,9 @@ computed:{
 
 get_bd(){
    return [
+
          this.fundname = this.$store.state.choosen_fund,
+         this.fund_name_id = this.$store.state.choosen_fund_id,
    ]
 },   
 
@@ -324,6 +326,7 @@ paymentmode:'',
 paymentmodeRules:[
 v => !!v || 'This field is required',
 ],
+fund_name_id:'',
 fundname:'',
 fundnameRules:[
 v => !!v || 'This field is required',
@@ -573,11 +576,11 @@ get_dpo () {
    } 
 },
 
-check_conflict(){
-if(this.green_card == 'yes' || this.tax_resi == 'yes') {
-this.$store.dispatch('move',4);
-}
-},
+// check_conflict(){
+// if(this.green_card == 'yes' || this.tax_resi == 'yes') {
+// this.$store.dispatch('move',4);
+// }
+// },
 back() {  
 this.$store.dispatch('move',1) 
 },
@@ -632,8 +635,8 @@ this.$store.dispatch('hold_bd',bank_details);
 //Investment Details 
 
 var investment_details = {
-fund_name_id :this.fundname.split('|')[0],
-fund_name :this.fundname.split('|')[1],
+fund_name_id :this.fund_name_id,
+fund_name :this.fundname,
 amount:this.amount,
 aiw:this.aiw,
 front_end_load:this.front_end_load,

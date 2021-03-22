@@ -4,6 +4,17 @@
 
 <v-container grid-list-xl>
     <v-layout wrap>
+       <v-flex xs12 md12>
+           <v-alert
+            v-if="$store.state.err_msg"
+            dense
+            text
+            type="error"
+    >
+      <span>{{$store.state.err_msg}}</span> 
+    </v-alert>
+       </v-flex>
+
        <v-flex xs6 md6 class="dob">
 <v-text-field class="red_class" @change="get_basic_details" v-model.lazy="cnic" :rules="cnicRules" :counter="15" label="CNIC" placeholder="">
 </v-text-field>
@@ -21,7 +32,8 @@
    label="CNIC Issue Date"
    readonly
    v-on="on"
-   ></v-text-field>
+   >
+   </v-text-field>
    </template>
 <v-date-picker
 :max="today"
@@ -30,8 +42,9 @@ v-model="date2"
 ></v-date-picker>
 </v-menu>
 </v-flex>
+
 <v-flex xs12 md4>
-<v-text-field class="red_class" readonly :value="get_bd" v-model="name" :rules="GroupByRequired" label="Name (as per CNIC)"></v-text-field>
+<v-text-field readonly class="red_class" :value="get_bd" v-model="name" :rules="GroupByRequired" label="Name (as per CNIC)"></v-text-field>
 </v-flex> 
 
 <v-flex xs6 md4>
@@ -57,13 +70,94 @@ v-model="date2"
     v-on="on"
     ></v-text-field>
     </template>
-<v-date-picker
-:max="today"
-v-model="date1"
-@change="menu1 = false"
-></v-date-picker>
+    <v-date-picker :max="today" v-model="date1" @change="check_user_age"></v-date-picker>
 </v-menu>
 </v-flex>
+
+
+       
+
+
+<!-- SA -->
+
+
+
+         <v-flex v-if="under_age" xs6 md6>
+         <v-text-field class="red_class" v-model="nameofguardian" :rules="GroupByRequired" label="Name of Guardian" :value="Caps"></v-text-field>
+         </v-flex>
+
+
+         <v-flex v-if="under_age" xs6 md6>
+         <v-text-field class="red_class" v-model="relationwithminor" :rules="GroupByRequired" label="Relation with Minor" :value="Caps"></v-text-field>
+         </v-flex>
+
+
+
+
+         <v-flex v-if="under_age" xs6 md6 class="dob">
+         <v-text-field class="red_class" v-model.lazy="cnicofguardian" :rules="cnicRules" :counter="15" label="CNIC of Guardian" placeholder="">
+         </v-text-field>
+         </v-flex>
+
+
+
+         <v-flex v-if="under_age" xs6 md6 class="dob"> 
+         <v-menu v-model="menu3" :close-on-content-click="false" max-width="290">
+         <template v-slot:activator="{ on }">
+         <v-text-field
+         style="font-size: 21px;"
+         :value="formatted_date3"
+         clearable
+         :rules="GroupByRequired"
+         placeholder="dd/mm/yyyy"
+         label="CNIC Expiry of Guardian"
+         readonly
+         v-on="on"
+         >
+         </v-text-field>
+         </template>
+         <v-date-picker
+         v-model="date3"
+         @change="menu3 = false"
+         ></v-date-picker>
+         </v-menu>
+         </v-flex>
+
+
+    
+
+         <v-flex  xs12 md12 >
+         <v-radio-group v-model="ub_investor"  row :rules="GroupByRequired">
+         <v-label>(Ultimately Beneficiary of the Investment): {{ub_investor}}</v-label>
+         <br>
+         <v-radio class="mx-3 r_label" label="Yes"  value="yes"></v-radio>
+         <v-radio label="No" value="no" class="mx-3 r_label"></v-radio>
+         </v-radio-group >
+         </v-flex>
+
+
+         <v-flex v-if="ub_investor == 'yes'" xs12 md4 >
+         <v-text-field class="red_class" v-model="nameofUB" :rules="GroupByRequired" label="Name of Ultimate Beneficiary" :value="Caps"></v-text-field>
+         </v-flex>
+
+
+         <v-flex  v-if="ub_investor == 'yes'" xs12 md4>
+         <v-text-field class="red_class" v-model="relationofUB" :rules="GroupByRequired" label="Relationship of Ultimate beneficiary with Investor with Investo" :value="Caps"></v-text-field>
+         </v-flex>
+
+
+
+
+         <v-flex  v-if="ub_investor == 'yes'"  xs12 md4 class="dob">
+         <v-text-field class="red_class" v-model.lazy="cnicofUB" :rules="cnicRules" :counter="15" label="CNIC/Passport No. Of the Ultimate beneficiary" placeholder="">
+         </v-text-field>
+         </v-flex>
+
+
+<!-- SA -->
+
+
+
 
     <v-flex xs12>
     <v-btn
@@ -312,7 +406,7 @@ v-model="date1"
     </v-flex>
 
 
-    <v-flex xs6 md6>
+    <v-flex xs12 md12>
       
     <v-autocomplete 
     v-model="soi" required :items="sois" item-text="GEN_NAME" item-value="GEN_ID" 
@@ -403,7 +497,7 @@ v-model="date1"
     <v-radio-group v-model="qq" required :rules="GroupByRequired">
     <v-radio name="qq"  label="PAKISTAN ONLY" value="pk"></v-radio>
     <v-radio name="qq"  label="USA" value="us"></v-radio>
-    <v-radio name="qq"  label="OTHER THAN USA & PAKISTAN" value="o"></v-radio>
+    <!-- <v-radio name="qq"  label="OTHER THAN USA & PAKISTAN" value="o"></v-radio> -->
     </v-radio-group>
 
     </v-flex>
@@ -423,20 +517,25 @@ v-model="date1"
 
 </template>
 <script>
-import {EventBus} from '../main';
+
+import { EventBus } from '../main';
 import axios from 'axios';
-import moment from 'moment/src/moment'
+import moment from 'moment/src/moment';
 
 export default {
 
 computed:{
 
 get_bd(){
+
+   let name = this.$store.state.name;
+  // name = name ? name.toUpperCase() : ''
+  
    return [
-         this.name = this.$store.state.name.toUpperCase(),
+         this.name = name,
          this.cell = this.$store.state.cell,
          this.cnic = this.$store.state.cnic,
-         this.email = this.$store.state.email.toUpperCase(),
+         this.email = this.$store.state.email,
    ]
 }, 
 
@@ -446,35 +545,78 @@ return this.$store.state.err;
 loading() {
 return this.$store.state.loading;
 }, 
+
+
 Caps () {
 
 return {
 
 "fathername" : this.fathername = this.fathername.toUpperCase(),
 "mothername" : this.mothername = this.mothername.toUpperCase(),
+
+"nameofguardian" : this.nameofguardian = this.nameofguardian .toUpperCase(),
+"relationwithminor" : this.relationwithminor =this.relationwithminor.toUpperCase(),
+
+"nameofUB" : this.nameofUB =this.nameofUB.toUpperCase(),
+"relationofUB" : this.relationofUB =this.relationofUB.toUpperCase(),
+
+
+
+
+
 "occ_name" :this.occ_name = this.occ_name.toUpperCase(),
 "designation" : this.designation = this.designation.toUpperCase(), 
 "department" : this.department = this.department.toUpperCase(),   
 "org_emp_bes_name"  : this.org_emp_bes_name = this.org_emp_bes_name.toUpperCase(),
-"no_of_dependants" : this.no_of_dependants = this.no_of_dependants.replace(/\D+/g, ''), 
+
 "working_experience" : this.working_experience = this.working_experience.replace(/\D+/g, ''),  
 "age_of_business" : this.age_of_business = this.age_of_business.replace(/\D+/g, ''),
+
 "other_education" : this.other_education = this.other_education.toUpperCase(),
 "other_refused_account_by_institute" : this.other_refused_account_by_institute = this.other_refused_account_by_institute.toUpperCase(),
 "other_high_value_item" : this.other_high_value_item = this.other_high_value_item.toUpperCase(),
 "address" : this.address = this.address.toUpperCase(),
 
 }
-}
-,  
+},
+
+
+// Caps () {
+
+// return [
+//       this.fathername = this.fathername.toUpperCase(),
+//       this.mothername = this.mothername.toUpperCase(),
+
+//       this.nameofguardian = this.nameofguardian .toUpperCase(),
+//       this.relationwithminor =this.relationwithminor.toUpperCase(),
+     
+
+//       this.occ_name = this.occ_name.toUpperCase(),
+//       this.designation = this.designation.toUpperCase(), 
+//       this.department = this.department.toUpperCase(),   
+//       this.org_emp_bes_name = this.org_emp_bes_name.toUpperCase(),
+//        this.other_education = this.other_education.toUpperCase(),
+//        this.other_refused_account_by_institute = this.other_refused_account_by_institute.toUpperCase(),
+//        this.other_high_value_item = this.other_high_value_item.toUpperCase(),
+//        this.address = this.address.toUpperCase(),
+//    ]
+// },
+
 today(){
 return moment(new Date()).format('YYYY-MM-DD');
 },
 formatted_date1 () {
 return this.date1 ? moment(this.date1).format('DD/MM/YYYY') : ''
 },
+
+
 formatted_date2 () {
 return this.date2 ? moment(this.date2).format('DD/MM/YYYY') : ''
+},
+
+
+formatted_date3 () {
+return this.date3 ? moment(this.date3).format('DD/MM/YYYY') : ''
 },
 },
 data () {
@@ -485,9 +627,13 @@ date1: '',
 
 date2: '',
 
+date3 : '',
+
 menu1: false,
 
 menu2: false,
+
+menu3: false,
 
 name: '',
 
@@ -499,7 +645,25 @@ fathername: '',
 
 mothername: '',
 
+nameofguardian: '',
+
+relationwithminor: '',
+
+nameofUB:'',
+
+relationofUB : '',
+
+cnicofUB: '',
+
+ub_investor: '',
+
+cnicofguardian: '',
+
 dob:'',
+
+under_age : false,
+
+ub_investor: '',
 
 cnic:'',
 
@@ -628,7 +792,7 @@ v => !!v || 'This field is required',
 
 cnicRules: [
 v => !!v || 'This field is required',
-v => (v.length >= 15 && v.length <= 15) || 'CNIC must be equal to 15 characters',
+v => v.length == 13 || v.length == 15 || 'CNIC must be equal to 13 or 15 characters',
 ],
 
 emailRules: [ 
@@ -688,10 +852,26 @@ userScore : '',
       }));
 
 
-      }).catch(err=>{console.log(err)});
+      }).catch(err=> console.log(err) );
 
    },
+
+
 methods: {
+
+check_user_age() {
+
+this.menu1 = false
+
+const date = new Date()
+
+let condition_year = date.getFullYear() - 18
+let selected_year = parseInt(this.date1.split("-")[0])
+
+this.under_age = selected_year <= condition_year ? false : true ;
+
+
+},   
 
 getMaritalStatus (){
 let xmls1=`<?xml version="1.0" encoding="utf-8"?>
@@ -925,6 +1105,8 @@ this.valid4zakat_certificate = (this.zakat_certificate) ? false : true
 
 submit(){
 
+   
+
 let payload = {
 
 name : this.name,
@@ -933,7 +1115,24 @@ fathername : this.fathername,
 
 mothername : this.mothername,
 
+nameofguardian : this.nameofguardian,
+
+relationwithminor : this.relationwithminor,
+
+nameofUB : this.nameofUB,
+
+relationofUB : this.relationofUB,
+
+cnicofUB : this.cnicofUB,
+
+
+cnicofguardian : this.cnicofguardian,
+
 dob : this.date1,
+
+under_age : this.under_age,
+
+ub_investor : this.ub_investor,
 
 cnic : this.cnic,
 
@@ -1018,13 +1217,9 @@ user_id : this.user_id,
 };
 
 
-
-const date = new Date()
-
-let condition_year = date.getFullYear() - 18
-let selected_year = parseInt(this.date1.split("-")[0])
-payload.under_age = (selected_year <= condition_year) ? false : true ;
 this.$store.dispatch('hold_ci',payload);
+
+// console.log(payload)
 
 
 // For testing
@@ -1060,17 +1255,12 @@ if(!this.$store.state.auto_fill
 && !this.valid4soi_attachment 
 && !this.valid4zakat_certificate
 ){
-if(payload.qq != 'pk' || payload.under_age == true){
-this.$store.dispatch('save_form');
 
+   window.scrollTo(0,0);
+   this.$store.dispatch('move',2);
+   let class_to_be_remove = document.getElementsByClassName('error--text')[0];
+   class_to_be_remove.parentNode.removeChild(class_to_be_remove);
 
-}
-else{
-window.scrollTo(0,0);
-this.$store.dispatch('move',2);
-let class_to_be_remove = document.getElementsByClassName('error--text')[0];
-class_to_be_remove.parentNode.removeChild(class_to_be_remove);
-}  
 }
 
 else{
@@ -1080,10 +1270,15 @@ else{
 }
 
 },  
+
+
 get_basic_details(){
   
    this.$store.dispatch('get_basic_details',this.cnic);
 },
+
+
+
 add_dash:function(event){
 var value = this.cnic;
 var arr = value.split('');
