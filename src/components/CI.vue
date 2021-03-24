@@ -1,9 +1,13 @@
 <template>
 <v-container>
+      
+
 <v-form ref="form">
 
 <v-container grid-list-xl>
+   
     <v-layout wrap>
+      
        <v-flex xs12 md12>
            <v-alert
             v-if="$store.state.err_msg"
@@ -78,7 +82,7 @@ v-model="date2"
        
 
 
-<!-- SA -->
+<!-- SA start -->
 
 
 
@@ -86,20 +90,14 @@ v-model="date2"
          <v-text-field class="red_class" v-model="nameofguardian" :rules="GroupByRequired" label="Name of Guardian" :value="Caps"></v-text-field>
          </v-flex>
 
-
          <v-flex v-if="under_age" xs6 md6>
          <v-text-field class="red_class" v-model="relationwithminor" :rules="GroupByRequired" label="Relation with Minor" :value="Caps"></v-text-field>
          </v-flex>
-
-
-
 
          <v-flex v-if="under_age" xs6 md6 class="dob">
          <v-text-field class="red_class" v-model.lazy="cnicofguardian" :rules="cnicRules" :counter="15" label="CNIC of Guardian" placeholder="">
          </v-text-field>
          </v-flex>
-
-
 
          <v-flex v-if="under_age" xs6 md6 class="dob"> 
          <v-menu v-model="menu3" :close-on-content-click="false" max-width="290">
@@ -135,26 +133,157 @@ v-model="date2"
          </v-radio-group >
          </v-flex>
 
-
          <v-flex v-if="ub_investor == 'yes'" xs12 md4 >
          <v-text-field class="red_class" v-model="nameofUB" :rules="GroupByRequired" label="Name of Ultimate Beneficiary" :value="Caps"></v-text-field>
          </v-flex>
 
-
          <v-flex  v-if="ub_investor == 'yes'" xs12 md4>
          <v-text-field class="red_class" v-model="relationofUB" :rules="GroupByRequired" label="Relationship of Ultimate beneficiary with Investor with Investo" :value="Caps"></v-text-field>
          </v-flex>
-
-
-
 
          <v-flex  v-if="ub_investor == 'yes'"  xs12 md4 class="dob">
          <v-text-field class="red_class" v-model.lazy="cnicofUB" :rules="cnicRules" :counter="15" label="CNIC/Passport No. Of the Ultimate beneficiary" placeholder="">
          </v-text-field>
          </v-flex>
 
+         
+<!-- first Nominee   -->
 
-<!-- SA -->
+
+           <v-flex xs12 md12 >
+              <h4>First Nominee</h4>
+
+               <v-layout wrap>
+                
+
+           <v-flex xs12 md4 >
+         
+         <v-text-field class="red_class" v-model="nameofnominee" :rules="GroupByRequired" label="Name" :value="Caps"></v-text-field>
+         </v-flex>
+
+         <v-flex xs12 md4 >
+         <v-text-field class="red_class" v-model="rlationshipofnominee" :rules="GroupByRequired" label="Relationship" :value="Caps"></v-text-field>
+         </v-flex>
+
+         <v-flex xs12 md4 >
+         <v-text-field class="red_class" v-model="sharepercentofnominee" :rules="GroupByRequired" label="Sharepercent" :value="Caps"></v-text-field>
+         </v-flex>
+
+
+          <v-flex  xs6 md6 class="dob">
+         <v-text-field class="red_class" v-model.lazy="cnicofnominee" :rules="cnicRules" :counter="15" label="CNIC" placeholder="">
+         </v-text-field>
+         </v-flex>
+
+
+          <v-flex  xs6 md6 class="dob"> 
+         <v-menu v-model="menu4" :close-on-content-click="false" max-width="290">
+         <template v-slot:activator="{ on }">
+         <v-text-field
+         style="font-size: 21px;"
+         :value="formatted_date4"
+         clearable
+         :rules="GroupByRequired"
+         placeholder="dd/mm/yyyy"
+         label="CNIC Expiry "
+         readonly
+         v-on="on"
+         >
+         </v-text-field>
+         </template>
+         <v-date-picker
+         v-model="date4"
+         @change="menu4 = false"
+         ></v-date-picker>
+         </v-menu>
+         </v-flex>
+          
+    </v-layout>
+
+            </v-flex>
+
+        
+
+        
+
+
+
+         <!-- second Nominee   -->
+         <v-flex xs12 md12 >
+    
+   
+         <v-btn small class="primary" @click="show = !show">
+         <span v-if="show"> ADD Nominee<v-icon>mdi-plus</v-icon></span>
+         <span v-else><v-icon>mdi-close</v-icon></span>
+         </v-btn>
+     
+ 
+
+  </v-flex> 
+
+   <v-flex v-if="!show" xs12 md12>
+      <v-layout wrap>
+          <v-flex xs12 md12 ><h4>
+            Second Nominee
+         </h4></v-flex>
+      
+         <v-flex xs12 md4 >
+         <v-text-field class="red_class" v-model="nameofsecondnominee" :rules="GroupByRequired" label="Name" :value="Caps"></v-text-field>
+         </v-flex>
+
+         <v-flex xs12 md4 >
+         <v-text-field class="red_class" v-model="Rlationshipofsecondnominee" :rules="GroupByRequired" label="Relationship" :value="Caps"></v-text-field>
+         </v-flex>
+
+         <v-flex xs12 md4 >
+         <v-text-field class="red_class" v-model="sharepercentofsecondnominee" :rules="GroupByRequired" label="Sharepercent" :value="Caps"></v-text-field>
+         </v-flex>
+
+
+          <v-flex  xs6 md6 class="dob">
+         <v-text-field class="red_class" v-model.lazy="cnicofsecondnominee" :rules="cnicRules" :counter="15" label="CNIC" placeholder="">
+         </v-text-field>
+         </v-flex>
+
+
+          <v-flex  xs6 md6 class="dob"> 
+         <v-menu v-model="menu5" :close-on-content-click="false" max-width="290">
+         <template v-slot:activator="{ on }">
+         <v-text-field
+         style="font-size: 21px;"
+         :value="formatted_date5"
+         clearable
+         :rules="GroupByRequired"
+         placeholder="dd/mm/yyyy"
+         label="CNIC Expiry "
+         readonly
+         v-on="on"
+         >
+         </v-text-field>
+         </template>
+         <v-date-picker
+         v-model="date5"
+         @change="menu5 = false"
+         ></v-date-picker>
+         </v-menu>
+         </v-flex>
+      </v-layout>
+   </v-flex>
+      
+      <!-- 
+      <v-flex xs12>
+    <div v-if="err" style="color: #ff1744 !important;">{{err}}</div>
+    <v-btn class="primary" :loading="loading" >Second Nominee</v-btn>
+    </v-flex> -->
+
+        
+         
+
+
+
+
+
+<!-- SA  end -->
 
 
 
@@ -500,6 +629,173 @@ v-model="date2"
     <!-- <v-radio name="qq"  label="OTHER THAN USA & PAKISTAN" value="o"></v-radio> -->
     </v-radio-group>
 
+<!-- SA start Other than USA & Pakistan -->
+
+
+<v-container grid-list-xl>
+    <v-layout wrap>
+
+         <v-flex xs4 md6 >
+         <v-text-field class="red_class" v-model="us_name_ah" :rules="GroupByRequired" label="Name of Account Holder" :value="Caps"></v-text-field>
+         </v-flex>
+
+         
+         <v-flex xs6 md6 >
+         <v-text-field class="red_class" v-model="us_family_name" :rules="GroupByRequired" label="Family Name of Surname(s) Title" :value="Caps"></v-text-field>
+         </v-flex>
+
+         
+         <v-flex xs6 md6 >
+         <v-text-field class="red_class" v-model="us_given_name" :rules="GroupByRequired" label="First or Given Name " :value="Caps"></v-text-field>
+         </v-flex>
+
+         
+         <v-flex xs6 md6 >
+         <v-text-field class="red_class" v-model="us_middle_name" :rules="GroupByRequired" label="Middle Name(s)" :value="Caps"></v-text-field>
+         </v-flex>
+
+
+         <v-flex xs6 md6 >
+         <v-text-field class="red_class" v-model="us_current_address" :rules="GroupByRequired" label="Current Residential Address" :value="Caps"></v-text-field>
+         </v-flex>
+
+            <v-flex xs6>
+
+            <v-autocomplete
+            @change="getCityByCountry('uc_resi',us_resi_country)"  
+            v-model="us_resi_country" 
+            :items="countries" 
+            :rules="GroupByRequired"
+            required
+            item-text="CNT_OFFICALNAME" item-value="CNT_COUNTRYCODE" single-line auto label="Country (Residence)"></v-autocomplete>
+            </v-flex>
+
+            <v-flex xs6 md6 >
+         <v-text-field class="red_class" v-model="us_state" :rules="GroupByRequired" label="County/State " :value="Caps"></v-text-field>
+         </v-flex>
+
+            <v-flex xs6>
+            <v-autocomplete    
+            v-model="us_resi_city" 
+            :items="resi_cities_by_id" 
+            :rules="GroupByRequired"
+            required
+            item-text="CTY_FULLNAME" item-value="CTY_CITYCODE" single-line auto label="City (Residence)"></v-autocomplete>
+            </v-flex>
+
+
+            
+            <v-flex xs6 md6 >
+         <v-text-field class="red_class" v-model="us_zipcode" :rules="GroupByRequired" label="Postal/Zip Code" :value="Caps"></v-text-field>
+         </v-flex>
+
+         <v-flex xs6 md6 >
+         <v-text-field class="red_class" v-model="us_pobox" :rules="GroupByRequired" label="PO Box" :value="Caps"></v-text-field>
+         </v-flex>
+
+
+<!-- customer select yes open this form -->
+
+         <v-flex  xs12 md12 >
+         <v-radio-group v-model="ub_investor"  row :rules="GroupByRequired">
+         <v-label>Mailing Address  {{ub_investor}}</v-label>
+         <br>
+         <v-radio class="mx-3 r_label" label="Yes"  value="yes"></v-radio>
+         <v-radio label="No" value="no" class="mx-3 r_label"></v-radio>
+         </v-radio-group >
+         </v-flex>
+
+
+          <v-flex xs6 md6 >
+         <v-text-field class="red_class" v-model="milling_city" :rules="GroupByRequired" label="Town/City/Province" :value="Caps"></v-text-field>
+         </v-flex>
+
+          <v-flex xs6 md6 >
+         <v-text-field class="red_class" v-model="milling_state" :rules="GroupByRequired" label="County/State" :value="Caps"></v-text-field>
+         </v-flex>
+
+         <v-flex xs6 md6 >
+         <v-text-field class="red_class" v-model="milling_country" :rules="GroupByRequired" label="County" :value="Caps"></v-text-field>
+         </v-flex>
+
+         <v-flex xs6 md6 >
+         <v-text-field class="red_class" v-model="milling_zipcod" :rules="GroupByRequired" label="Postal/Zip Code" :value="Caps"></v-text-field>
+         </v-flex>
+
+         <v-flex xs6 md6 >
+         <v-text-field class="red_class" v-model="milling_pobox" :rules="GroupByRequired" label="PO Box" :value="Caps"></v-text-field>
+         </v-flex>
+
+            
+         <v-flex xs6 class="dob">
+         <v-menu v-model="menu1" :close-on-content-click="false" max-width="290">
+         <template v-slot:activator="{ on }">
+         <v-text-field
+         style="font-size: 21px;"
+         :value="formatted_date1"
+         :rules="(GroupByRequired)"
+         clearable
+         placeholder="dd/mm/yyyy"
+         label="Date Of Birth"
+         required
+         readonly
+         v-on="on"
+         ></v-text-field>
+         </template>
+         <v-date-picker :max="today" v-model="date1" @change="check_user_age"></v-date-picker>
+         </v-menu>
+         </v-flex>
+
+          <v-flex xs6 md6 >
+         <v-text-field class="red_class" v-model="milling_dob" :rules="GroupByRequired" label="Town or City of Birth" :value="Caps"></v-text-field>
+         </v-flex>
+
+
+         <v-flex xs6 md6 >
+         <v-text-field class="red_class" v-model="milling_cob" :rules="GroupByRequired" label="Country of Birth" :value="Caps"></v-text-field>
+         </v-flex>
+
+         <v-flex xs12 md12 ><h4>
+         Country of tax Residence and Taxpayer Identification Number (TIN) 
+         </h4></v-flex>
+
+          <v-flex xs12 md12 >
+         <v-text-field class="red_class" v-model="milling_tax_country" :rules="GroupByRequired" label="Name of Country Residence" :value="Caps"></v-text-field>
+         </v-flex>
+
+
+         <v-flex  xs6 md6 >
+         <v-radio-group v-model="ub_investor"  row :rules="GroupByRequired">
+         <v-label class="pa-md-1" >Taxpayer Identification Number (TIN): {{ub_investor}}</v-label>
+
+         <v-radio   class="mx-4 pa-md-1 r_label " label="Reason A- The country where the Account Holder is resident does not issue TIN to its residents."  value="reason(a)"> </v-radio>
+         <v-radio   class="mx-4 pa-md-1 r_label " label="Reason B - The Account Holder is otherwise unable to obtain a TIN (please explain why Account Holder is unable to obtain a TIN in the below table if you have selected the reason)."  value="reason(b)"> </v-radio>
+        
+         <v-flex xs12 md12 >
+         <v-text-field class="red_class" v-model="specificreason" :rules="GroupByRequired" label="Specify reason" :value="Caps"></v-text-field>
+         </v-flex>
+
+         <v-radio   class="mx-4  pa-md-1 r_label " label="Reason C - No TIN is required (Note: only this reason if the authorities of the country of residence for tax purposed entered above do not require the TIN to be disclosed)."  value="reason(c)"> </v-radio>
+
+
+      
+         </v-radio-group >
+         </v-flex>
+
+
+
+
+
+
+    </v-layout>
+    </v-container>
+
+
+<!-- SA end Other than USA & Pakistan -->
+
+
+
+
     </v-flex>
     <v-flex xs12>
     <div v-if="err" style="color: #ff1744 !important;">{{err}}</div>
@@ -561,6 +857,38 @@ return {
 "relationofUB" : this.relationofUB =this.relationofUB.toUpperCase(),
 
 
+"nameofnominee" : this.nameofnominee =this.nameofnominee.toUpperCase(),
+"rlationshipofnominee" : this.rlationshipofnominee =this.rlationshipofnominee.toUpperCase(),
+"sharepercentofnominee" : this.sharepercentofnominee =this.sharepercentofnominee.toUpperCase(),
+
+
+"nameofsecondnominee" : this.nameofsecondnominee =this.nameofsecondnominee.toUpperCase(),
+"rlationshipofsecondnominee" : this.rlationshipofsecondnominee =this.rlationshipofsecondnominee.toUpperCase(),
+"sharepercentofsecondnominee" : this.sharepercentofsecondnominee =this.sharepercentofsecondnominee.toUpperCase(),
+
+
+
+
+"us_name_ah" : this.us_name_ah =this.us_name_ah.toUpperCase(),
+"us_family_name" : this.us_family_name =this.us_family_name.toUpperCase(),
+"us_given_name" : this.us_given_name = this.us_given_name.toUpperCase(),
+"us_middle_name" : this.us_middle_name = this.us_middle_name.toUpperCase(),
+"us_current_address" : this.us_current_address = this.us_current_address.toUpperCase(),
+"us_state" : this.us_state = this.us_state.toUpperCase(),
+"us_zipcode" : this.us_zipcode = this.us_zipcode.toUpperCase(),
+"us_pobox" : this.us_pobox = this.us_pobox.toUpperCase(),
+
+"milling_city" : this.milling_city = this.milling_city.toUpperCase(),
+"milling_state" : this.milling_state = this.milling_state.toUpperCase(),
+"milling_country" : this.milling_country = this.milling_country.toUpperCase(),
+"milling_zipcod" : this.milling_zipcod = this.milling_zipcod.toUpperCase(),
+"milling_pobox" : this.milling_pobox = this.milling_pobox.toUpperCase(),
+"milling_dob" : this.milling_dob = this.milling_dob.toUpperCase(),
+"milling_cob" : this.milling_cob = this.milling_cob.toUpperCase(),
+"milling_tax_country" : this.milling_tax_country = this.milling_tax_country.toUpperCase(),
+"specificreason" : this.specificreason = this.specificreason.toUpperCase(),
+
+
 
 
 
@@ -618,10 +946,20 @@ return this.date2 ? moment(this.date2).format('DD/MM/YYYY') : ''
 formatted_date3 () {
 return this.date3 ? moment(this.date3).format('DD/MM/YYYY') : ''
 },
+
+formatted_date4 () {
+return this.date4 ? moment(this.date4).format('DD/MM/YYYY') : ''
+},
+
+formatted_date5 () {
+return this.date5 ? moment(this.date5).format('DD/MM/YYYY') : ''
+},
 },
 data () {
 return {
 //col: 12,
+
+show : true,
 
 date1: '',
 
@@ -629,11 +967,19 @@ date2: '',
 
 date3 : '',
 
+date4 : '',
+
+date5 : '',
+
 menu1: false,
 
 menu2: false,
 
 menu3: false,
+
+menu4: false,
+
+menu5: false,
 
 name: '',
 
@@ -651,7 +997,57 @@ relationwithminor: '',
 
 nameofUB:'',
 
-relationofUB : '',
+nameofnominee: '',
+
+rlationshipofnominee: '',
+
+sharepercentofnominee: '',
+
+cnicofnominee: '',
+
+nameofsecondnominee :'',
+
+rlationshipofsecondnominee: '',
+
+sharepercentofsecondnominee: '',
+
+cnicofsecondnominee: '',
+
+us_name_ah: '',
+
+us_family_name: '',
+
+us_given_name: '',
+
+us_middle_name: '',
+
+us_current_address: '',
+
+us_zipcode: '',
+
+us_state : '',
+
+us_pobox: '',
+
+milling_city: '',
+
+milling_state: '',
+
+milling_country: '',
+
+milling_zipcod : '',
+
+milling_pobox: '',
+
+milling_dob : '',
+
+milling_cob: '',
+
+milling_tax_country : '',
+
+specificreason : '',
+
+relationofUB: '',
 
 cnicofUB: '',
 
@@ -745,7 +1141,11 @@ pob_country:'',
 
 resi_city:'',
 
+us_resi_city:'',
+
 resi_country:'',
+
+us_resi_country:'',
 
 pob_cities_by_id:[],
 
@@ -1132,6 +1532,56 @@ dob : this.date1,
 
 under_age : this.under_age,
 
+nameofnominee : this.nameofnominee,
+
+rlationshipofnominee : this.rlationshipofnominee,
+
+sharepercentofnominee : this.sharepercentofnominee,
+
+cnicofnominee : this.cnicofnominee,
+
+nameofsecondnominee : this.nameofsecondnominee,
+
+rlationshipofsecondnominee : this.rlationshipofsecondnominee,
+
+sharepercentofsecondnominee : this.sharepercentofsecondnominee,
+
+cnicofsecondnominee : this.cnicofsecondnominee,
+
+us_name_ah: this.us_name_ah,
+
+us_family_name : this.us_family_name,
+
+us_given_name : this.us_given_name,
+
+us_middle_name : this.us_middle_name,
+
+us_current_address : this.us_current_address,
+
+us_zipcode : this.us_zipcode,
+
+us_state : this.us_state,
+
+us_pobox : this.us_pobox,
+
+milling_city : this.milling_city,
+
+milling_state : this.milling_state,
+
+milling_country : this.milling_country,
+
+milling_zipcod : this.milling_zipcod,
+
+milling_pobox : this.milling_pobox,
+
+milling_dob : this.milling_dob,
+
+milling_cob : this.milling_cob,
+
+milling_tax_country : this.milling_tax_country,
+
+specificreason : this.specificreason,
+
 ub_investor : this.ub_investor,
 
 cnic : this.cnic,
@@ -1194,11 +1644,22 @@ address : this.address,
 
 country1_id  :this.resi_country.split('|')[0],
 
-country1 : this.resi_country.split('|')[1],	
+country1 : this.resi_country.split('|')[1],
+
+country1_id  :this.us_resi_country.split('|')[0],
+
+country1 : this.us_resi_country.split('|')[1],
+
+
 
 city1_id  :this.resi_city.split('|')[0],	
 
 city1 : this.resi_city.split('|')[1],
+
+city1_id  :this.us_resi_city.split('|')[0],	
+
+city1 : this.us_resi_city.split('|')[1],
+
 
 zakat : this.zakat,
 
