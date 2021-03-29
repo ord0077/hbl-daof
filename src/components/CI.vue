@@ -95,12 +95,13 @@ v-model="date2"
          </v-flex>
 
          <v-flex v-if="under_age" xs6 md6 class="dob">
+            
          <v-text-field class="red_class" v-model.lazy="cnicofguardian" :rules="cnicRules" :counter="15" label="CNIC of Guardian" placeholder="">
          </v-text-field>
          </v-flex>
 
          <v-flex v-if="under_age" xs6 md6 class="dob"> 
-         <v-menu v-model="menu3" :close-on-content-click="false" max-width="290">
+         <v-menu v-model="menu3" max-width="290">
          <template v-slot:activator="{ on }">
          <v-text-field
          style="font-size: 21px;"
@@ -119,6 +120,8 @@ v-model="date2"
          @change="menu3 = false"
          ></v-date-picker>
          </v-menu>
+
+        
          </v-flex>
 
 
@@ -150,33 +153,42 @@ v-model="date2"
 <!-- first Nominee   -->
 
 
-           <v-flex xs12 md12 >
+         <v-flex  xs12 md12 >
+         <v-radio-group v-model="investor"  row :rules="GroupByRequired">
+         <v-label>Nominee(s) – (not applicable in case of Joint account)</v-label>
+         <br>
+         <v-radio class="mx-3 r_label" label="Yes"  value="yes"></v-radio>
+         <v-radio label="No" value="no" class="mx-3 r_label"></v-radio>
+         </v-radio-group >
+         </v-flex>
+
+           <v-flex v-if="investor == 'yes'" xs12 md12 >
               <h4>First Nominee</h4>
 
                <v-layout wrap>
                 
 
-           <v-flex xs12 md4 >
+           <v-flex v-if="investor == 'yes'" xs12 md4 >
          
          <v-text-field class="red_class" v-model="nameofnominee" :rules="GroupByRequired" label="Name" :value="Caps"></v-text-field>
          </v-flex>
 
-         <v-flex xs12 md4 >
+         <v-flex v-if="investor == 'yes'" xs12 md4 >
          <v-text-field class="red_class" v-model="rlationshipofnominee" :rules="GroupByRequired" label="Relationship" :value="Caps"></v-text-field>
          </v-flex>
 
-         <v-flex xs12 md4 >
+         <v-flex v-if="investor == 'yes'" xs12 md4 >
          <v-text-field class="red_class" v-model="sharepercentofnominee" :rules="GroupByRequired" label="Sharepercent" :value="Caps"></v-text-field>
          </v-flex>
 
 
-          <v-flex  xs6 md6 class="dob">
+          <v-flex v-if="investor == 'yes'"  xs6 md6 class="dob">
          <v-text-field class="red_class" v-model.lazy="cnicofnominee" :rules="cnicRules" :counter="15" label="CNIC" placeholder="">
          </v-text-field>
          </v-flex>
 
 
-          <v-flex  xs6 md6 class="dob"> 
+          <v-flex v-if="investor == 'yes'"  xs6 md6 class="dob"> 
          <v-menu v-model="menu4" :close-on-content-click="false" max-width="290">
          <template v-slot:activator="{ on }">
          <v-text-field
@@ -209,7 +221,7 @@ v-model="date2"
 
 
          <!-- second Nominee   -->
-         <v-flex xs12 md12 >
+         <v-flex v-if="investor == 'yes'" xs12 md12 >
     
    
          <v-btn small class="primary" @click="show = !show">
@@ -626,40 +638,49 @@ v-model="date2"
     <v-radio-group v-model="qq" required :rules="GroupByRequired">
     <v-radio name="qq"  label="PAKISTAN ONLY" value="pk"></v-radio>
     <v-radio name="qq"  label="USA" value="us"></v-radio>
-    <!-- <v-radio name="qq"  label="OTHER THAN USA & PAKISTAN" value="o"></v-radio> -->
+    <v-radio name="qq"  label="OTHER THAN USA & PAKISTAN" value="o"></v-radio> 
     </v-radio-group>
 
-<!-- SA start Other than USA & Pakistan -->
+
+    </v-flex>
+    
+<!--  -->
+ 
 
 
+
+<!--  -->
+<!-- SA start Other than USA & Pakistan code -->
+
+<v-flex md12 v-if="qq == 'o'">
 <v-container grid-list-xl>
     <v-layout wrap>
 
          <v-flex xs4 md6 >
-         <v-text-field class="red_class" v-model="us_name_ah" :rules="GroupByRequired" label="Name of Account Holder" :value="Caps"></v-text-field>
+         <v-text-field class="red_class" v-model="us_name_ah" :rules="GroupByRequired" label="Name of Account Holder " :value="Caps"></v-text-field>
          </v-flex>
 
          
-         <v-flex xs6 md6 >
+         <v-flex  xs6 md6 >
          <v-text-field class="red_class" v-model="us_family_name" :rules="GroupByRequired" label="Family Name of Surname(s) Title" :value="Caps"></v-text-field>
          </v-flex>
 
          
-         <v-flex xs6 md6 >
+         <v-flex  xs6 md6 >
          <v-text-field class="red_class" v-model="us_given_name" :rules="GroupByRequired" label="First or Given Name " :value="Caps"></v-text-field>
          </v-flex>
 
          
-         <v-flex xs6 md6 >
+         <v-flex  xs6 md6 >
          <v-text-field class="red_class" v-model="us_middle_name" :rules="GroupByRequired" label="Middle Name(s)" :value="Caps"></v-text-field>
          </v-flex>
 
 
-         <v-flex xs6 md6 >
+         <v-flex  xs6 md6 >
          <v-text-field class="red_class" v-model="us_current_address" :rules="GroupByRequired" label="Current Residential Address" :value="Caps"></v-text-field>
          </v-flex>
 
-            <v-flex xs6>
+            <v-flex  xs6>
 
             <v-autocomplete
             @change="getCityByCountry('uc_resi',us_resi_country)"  
@@ -670,11 +691,11 @@ v-model="date2"
             item-text="CNT_OFFICALNAME" item-value="CNT_COUNTRYCODE" single-line auto label="Country (Residence)"></v-autocomplete>
             </v-flex>
 
-            <v-flex xs6 md6 >
+            <v-flex  xs6 md6 >
          <v-text-field class="red_class" v-model="us_state" :rules="GroupByRequired" label="County/State " :value="Caps"></v-text-field>
          </v-flex>
 
-            <v-flex xs6>
+            <v-flex  xs6>
             <v-autocomplete    
             v-model="us_resi_city" 
             :items="resi_cities_by_id" 
@@ -685,20 +706,20 @@ v-model="date2"
 
 
             
-            <v-flex xs6 md6 >
-         <v-text-field class="red_class" v-model="us_zipcode" :rules="GroupByRequired" label="Postal/Zip Code" :value="Caps"></v-text-field>
+            <v-flex  xs6 md6 >
+         <v-text-field class="red_class" v-model="us_zipcode"  label="Postal/Zip Code" :value="Caps"></v-text-field>
          </v-flex>
 
-         <v-flex xs6 md6 >
-         <v-text-field class="red_class" v-model="us_pobox" :rules="GroupByRequired" label="PO Box" :value="Caps"></v-text-field>
+         <v-flex  xs6 md6 >
+         <v-text-field class="red_class" v-model="us_pobox"  label="PO Box" :value="Caps"></v-text-field>
          </v-flex>
 
 
 <!-- customer select yes open this form -->
 
-         <v-flex  xs12 md12 >
-         <v-radio-group v-model="ub_investor"  row :rules="GroupByRequired">
-         <v-label>Mailing Address  {{ub_investor}}</v-label>
+         <v-flex    xs12 md12 >
+         <v-radio-group v-model="maillin_address"  row :rules="GroupByRequired">
+         <v-label>If Mailing Address different:   {{maillin_address}}</v-label>
          <br>
          <v-radio class="mx-3 r_label" label="Yes"  value="yes"></v-radio>
          <v-radio label="No" value="no" class="mx-3 r_label"></v-radio>
@@ -706,97 +727,120 @@ v-model="date2"
          </v-flex>
 
 
-          <v-flex xs6 md6 >
+            <v-flex v-if="maillin_address == 'yes'" xs6 md6 >
          <v-text-field class="red_class" v-model="milling_city" :rules="GroupByRequired" label="Town/City/Province" :value="Caps"></v-text-field>
          </v-flex>
 
-          <v-flex xs6 md6 >
+            <v-flex v-if="maillin_address == 'yes'" xs6 md6 >
          <v-text-field class="red_class" v-model="milling_state" :rules="GroupByRequired" label="County/State" :value="Caps"></v-text-field>
          </v-flex>
 
-         <v-flex xs6 md6 >
+         <v-flex v-if="maillin_address == 'yes'" xs6 md6 >
          <v-text-field class="red_class" v-model="milling_country" :rules="GroupByRequired" label="County" :value="Caps"></v-text-field>
          </v-flex>
 
-         <v-flex xs6 md6 >
-         <v-text-field class="red_class" v-model="milling_zipcod" :rules="GroupByRequired" label="Postal/Zip Code" :value="Caps"></v-text-field>
+         <v-flex v-if="maillin_address == 'yes'" xs6 md6 >
+         <v-text-field class="red_class" v-model="milling_zipcod"  label="Postal/Zip Code" :value="Caps"></v-text-field>
          </v-flex>
 
-         <v-flex xs6 md6 >
-         <v-text-field class="red_class" v-model="milling_pobox" :rules="GroupByRequired" label="PO Box" :value="Caps"></v-text-field>
+         <v-flex v-if="maillin_address == 'yes'" xs6 md6 >
+         <v-text-field class="red_class" v-model="milling_pobox"  label="PO Box" :value="Caps"></v-text-field>
          </v-flex>
 
-            
-         <v-flex xs6 class="dob">
-         <v-menu v-model="menu1" :close-on-content-click="false" max-width="290">
+
+            <v-flex    xs6 md6 class="dob"> 
+         <v-menu v-model="menu6" :close-on-content-click="false" max-width="290">
          <template v-slot:activator="{ on }">
          <v-text-field
          style="font-size: 21px;"
-         :value="formatted_date1"
-         :rules="(GroupByRequired)"
+         :value="formatted_date6"
          clearable
+         :rules="GroupByRequired"
          placeholder="dd/mm/yyyy"
-         label="Date Of Birth"
-         required
+         label="Date of Birth"
          readonly
          v-on="on"
-         ></v-text-field>
+         >
+         </v-text-field>
          </template>
-         <v-date-picker :max="today" v-model="date1" @change="check_user_age"></v-date-picker>
+         <v-date-picker
+         v-model="date6"
+         @change="menu6 = false"
+         ></v-date-picker>
          </v-menu>
          </v-flex>
 
-          <v-flex xs6 md6 >
+
+            <v-flex   xs6 md6 >
+         <v-text-field class="red_class" v-model="milling_dob" :rules="GroupByRequired" label="Town or City of Birth" :value="Caps"></v-text-field>
+         </v-flex>
+
+            <v-flex   xs6 md6 >
          <v-text-field class="red_class" v-model="milling_dob" :rules="GroupByRequired" label="Town or City of Birth" :value="Caps"></v-text-field>
          </v-flex>
 
 
-         <v-flex xs6 md6 >
+         <v-flex   xs6 md6 >
          <v-text-field class="red_class" v-model="milling_cob" :rules="GroupByRequired" label="Country of Birth" :value="Caps"></v-text-field>
          </v-flex>
 
-         <v-flex xs12 md12 ><h4>
+         <v-flex   xs12 md12 ><h4>
          Country of tax Residence and Taxpayer Identification Number (TIN) 
          </h4></v-flex>
 
-          <v-flex xs12 md12 >
+            <v-flex  xs12 md12 >
          <v-text-field class="red_class" v-model="milling_tax_country" :rules="GroupByRequired" label="Name of Country Residence" :value="Caps"></v-text-field>
          </v-flex>
 
 
-         <v-flex  xs6 md6 >
-         <v-radio-group v-model="ub_investor"  row :rules="GroupByRequired">
-         <v-label class="pa-md-1" >Taxpayer Identification Number (TIN): {{ub_investor}}</v-label>
-
-         <v-radio   class="mx-4 pa-md-1 r_label " label="Reason A- The country where the Account Holder is resident does not issue TIN to its residents."  value="reason(a)"> </v-radio>
-         <v-radio   class="mx-4 pa-md-1 r_label " label="Reason B - The Account Holder is otherwise unable to obtain a TIN (please explain why Account Holder is unable to obtain a TIN in the below table if you have selected the reason)."  value="reason(b)"> </v-radio>
-        
-         <v-flex xs12 md12 >
-         <v-text-field class="red_class" v-model="specificreason" :rules="GroupByRequired" label="Specify reason" :value="Caps"></v-text-field>
-         </v-flex>
-
-         <v-radio   class="mx-4  pa-md-1 r_label " label="Reason C - No TIN is required (Note: only this reason if the authorities of the country of residence for tax purposed entered above do not require the TIN to be disclosed)."  value="reason(c)"> </v-radio>
-
-
-      
+          <v-flex  xs12 md12 >
+         <v-radio-group v-model="tx_Identification"  row :rules="GroupByRequired">
+       <v-label class="pa-md-1" >Taxpayer Identification Number (TIN): {{tx_Identification}}</v-label>
+         <br>
+         <v-radio class="mx-3 r_label" label="Yes"  value="yes"></v-radio>
+         <v-radio label="No" value="no" class="mx-3 r_label"></v-radio>
          </v-radio-group >
          </v-flex>
 
 
 
+         <v-flex v-if="tx_Identification == 'yes'"  xs6 md6 >
+         <v-radio-group v-model="tx_reason"  row :rules="GroupByRequired">
+         
+
+               
+          <v-flex  xs12 md12 >
+         <v-radio-group v-model="reason_b"  row :rules="GroupByRequired">
+       <v-label class="pa-md-1" >Taxpayer Identification Number (TIN): {{test}}</v-label>
+         <br>
+        <v-radio   class="mx-4 pa-md-1 r_label " label="Reason A- The country where the Account Holder is resident does not issue TIN to its residents."  value="a"> </v-radio>
+         <v-radio   class="mx-4 pa-md-1 r_label " label="Reason B - The Account Holder is otherwise unable to obtain a TIN (please explain why Account Holder is unable to obtain a TIN in the below table if you have selected the reason)."  value="b"> </v-radio>
+        
+        
+         <v-flex v-if="reason_b == 'b'" xs12 md12 >
+         <v-text-field class="red_class" v-model="specificreason" :rules="GroupByRequired" label="Specify reason" :value="Caps"></v-text-field>
+         </v-flex>
+
+         <v-radio   class="mx-4  pa-md-1 r_label " label="Reason C - No TIN is required (Note: only this reason if the authorities of the country of residence for tax purposed entered above do not require the TIN to be disclosed)."  value="c"> </v-radio>
+
+         </v-radio-group >
+         </v-flex>
 
 
 
-    </v-layout>
-    </v-container>
+         
+         </v-radio-group >
+         </v-flex>
 
+         </v-layout>
+         </v-container>
 
+         </v-flex>
 <!-- SA end Other than USA & Pakistan -->
 
 
 
 
-    </v-flex>
     <v-flex xs12>
     <div v-if="err" style="color: #ff1744 !important;">{{err}}</div>
     <v-btn class="primary" :loading="loading" @click="submit">Continue</v-btn>
@@ -954,6 +998,11 @@ return this.date4 ? moment(this.date4).format('DD/MM/YYYY') : ''
 formatted_date5 () {
 return this.date5 ? moment(this.date5).format('DD/MM/YYYY') : ''
 },
+
+formatted_date6 () {
+return this.date6 ? moment(this.date6).format('DD/MM/YYYY') : ''
+},
+
 },
 data () {
 return {
@@ -971,6 +1020,8 @@ date4 : '',
 
 date5 : '',
 
+date6: '',
+
 menu1: false,
 
 menu2: false,
@@ -980,6 +1031,8 @@ menu3: false,
 menu4: false,
 
 menu5: false,
+
+menu6: false,
 
 name: '',
 
@@ -1029,6 +1082,17 @@ us_state : '',
 
 us_pobox: '',
 
+tx_Identification : '',
+
+tx_reason : '',
+
+reason_b : '',
+
+
+
+maillin_address : '',
+
+
 milling_city: '',
 
 milling_state: '',
@@ -1052,6 +1116,8 @@ relationofUB: '',
 cnicofUB: '',
 
 ub_investor: '',
+
+investor : '',
 
 cnicofguardian: '',
 
@@ -1564,6 +1630,16 @@ us_state : this.us_state,
 
 us_pobox : this.us_pobox,
 
+tx_Identification : this.tx_Identification,
+
+tx_reason : this.tx_reason,
+
+reason_b : this.reason_b,
+
+
+
+maillin_address : this.maillin_address,
+
 milling_city : this.milling_city,
 
 milling_state : this.milling_state,
@@ -1583,6 +1659,8 @@ milling_tax_country : this.milling_tax_country,
 specificreason : this.specificreason,
 
 ub_investor : this.ub_investor,
+
+investor : this.investor,
 
 cnic : this.cnic,
 

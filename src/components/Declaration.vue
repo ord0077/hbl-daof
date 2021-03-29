@@ -1,6 +1,7 @@
 <template>
  <v-container fluid>
    <v-form ref="form">
+     <center><h1>Declaration</h1></center>
 <v-layout wrap>
 
 
