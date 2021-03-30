@@ -129,7 +129,7 @@ v-model="date2"
 
          <v-flex  xs12 md12 >
          <v-radio-group v-model="ub_investor"  row :rules="GroupByRequired">
-         <v-label>(Ultimately Beneficiary of the Investment): {{ub_investor}}</v-label>
+         <v-label>(Ultimately Beneficiary of the Investment):</v-label>
          <br>
          <v-radio class="mx-3 r_label" label="Yes"  value="yes"></v-radio>
          <v-radio label="No" value="no" class="mx-3 r_label"></v-radio>
@@ -154,7 +154,7 @@ v-model="date2"
 
 
          <v-flex  xs12 md12 >
-         <v-radio-group v-model="investor"  row :rules="GroupByRequired">
+         <v-radio-group v-model="nominee"  row :rules="GroupByRequired">
          <v-label>Nominee(s) – (not applicable in case of Joint account)</v-label>
          <br>
          <v-radio class="mx-3 r_label" label="Yes"  value="yes"></v-radio>
@@ -162,33 +162,33 @@ v-model="date2"
          </v-radio-group >
          </v-flex>
 
-           <v-flex v-if="investor == 'yes'" xs12 md12 >
+           <v-flex v-if="nominee == 'yes'" xs12 md12 >
               <h4>First Nominee</h4>
 
                <v-layout wrap>
                 
 
-           <v-flex v-if="investor == 'yes'" xs12 md4 >
+           <v-flex v-if="nominee == 'yes'" xs12 md4 >
          
          <v-text-field class="red_class" v-model="nameofnominee" :rules="GroupByRequired" label="Name" :value="Caps"></v-text-field>
          </v-flex>
 
-         <v-flex v-if="investor == 'yes'" xs12 md4 >
+         <v-flex v-if="nominee == 'yes'" xs12 md4 >
          <v-text-field class="red_class" v-model="rlationshipofnominee" :rules="GroupByRequired" label="Relationship" :value="Caps"></v-text-field>
          </v-flex>
 
-         <v-flex v-if="investor == 'yes'" xs12 md4 >
+         <v-flex v-if="nominee == 'yes'" xs12 md4 >
          <v-text-field class="red_class" v-model="sharepercentofnominee" type="number" :rules="GroupByRequired" label="Share%" :value="Caps"></v-text-field>
          </v-flex>
 
 
-          <v-flex v-if="investor == 'yes'"  xs6 md6 class="dob">
+          <v-flex v-if="nominee == 'yes'"  xs6 md6 class="dob">
          <v-text-field class="red_class" v-model.lazy="cnicofnominee" :rules="cnicRules" :counter="15" label="CNIC" placeholder="">
          </v-text-field>
          </v-flex>
 
 
-          <v-flex v-if="investor == 'yes'"  xs6 md6 class="dob"> 
+          <v-flex v-if="nominee == 'yes'"  xs6 md6 class="dob"> 
          <v-menu v-model="menu4" :close-on-content-click="false" max-width="290">
          <template v-slot:activator="{ on }">
          <v-text-field
@@ -215,7 +215,7 @@ v-model="date2"
  
     
    
-         <v-btn v-if="investor == 'yes'" small class="primary" @click="show = !show">
+         <v-btn v-if="nominee == 'yes'" small class="primary" @click="show = !show">
          <span v-if="show"> ADD Nominee<v-icon>mdi-plus</v-icon></span>
          <span v-else><v-icon>mdi-close</v-icon></span>
          </v-btn>
@@ -662,7 +662,7 @@ v-model="date2"
             </v-flex>
 
             <v-flex  xs6 md6 >
-         <v-text-field class="red_class" v-model="us_state" :rules="GroupByRequired" label="County/State " :value="Caps"></v-text-field>
+           <v-text-field class="red_class" v-model="us_state" :rules="GroupByRequired" label="County/State " :value="Caps"></v-text-field>
          </v-flex>
 
             <v-flex  xs6>
@@ -689,7 +689,7 @@ v-model="date2"
 
          <v-flex    xs12 md12 >
          <v-radio-group v-model="mailing_address"  row :rules="GroupByRequired">
-         <v-label>If Mailing Address different:   {{mailing_address}}</v-label>
+         <v-label>If Mailing Address different:</v-label>
          <br>
          <v-radio class="mx-3 r_label" label="Yes"  value="yes"></v-radio>
          <v-radio label="No" value="no" class="mx-3 r_label"></v-radio>
@@ -769,7 +769,7 @@ v-model="date2"
 
 
           <v-flex  xs12 md12 >
-         <v-radio-group v-model="tx_Identification"  row >
+         <v-radio-group v-model="isTaxPayer"  row >
          <v-label class="pa-md-1" >Taxpayer Identification Number (TIN):</v-label>
         
          <v-radio class="mx-3 r_label" label="Yes"  value="yes"></v-radio>
@@ -777,12 +777,12 @@ v-model="date2"
          </v-radio-group >
          </v-flex>
 
-         <v-flex v-if="tx_Identification == 'yes'"  xs12 md12 >
-         <v-text-field class="red_class" v-model="mailing_tin" :rules="GroupByRequired" label="Taxpayer Identification Number " :value="Caps"></v-text-field>
+         <v-flex v-if="isTaxPayer == 'yes'"  xs12 md12 >
+         <v-text-field class="red_class" v-model="TaxPayerNumber" :rules="GroupByRequired" label="Taxpayer Identification Number " :value="Caps"></v-text-field>
          </v-flex>
 
 
-         <v-flex v-if="tx_Identification == 'no'"   xs12 md12 >
+         <v-flex v-if="isTaxPayer == 'no'"   xs12 md12 >
          <v-radio-group v-model="reason"   :rules="GroupByRequired">
          <v-label class="pa-md-1" >Taxpayer Identification Number (TIN)</v-label>
 
@@ -930,7 +930,7 @@ return {
 
 "mailing_tax_country" : this.mailing_tax_country = this.mailing_tax_country.toUpperCase(),
 "specificreason" : this.specificreason = this.specificreason.toUpperCase(),
-"mailing_tin" : this.mailing_tin = this.mailing_tin.toUpperCase(),
+"TaxPayerNumber" : this.TaxPayerNumber = this.TaxPayerNumber.toUpperCase(),
 
 
 
@@ -1083,13 +1083,9 @@ us_state : '',
 
 us_pobox: '',
 
-tx_Identification : '',
-
-tx_reason : '',
+isTaxPayer : '',
 
 reason : '',
-
-
 
 mailing_address : '',
 
@@ -1112,7 +1108,7 @@ mailing_pob: '',
 
 mailing_tob: '',
 
-mailing_tin: '',
+TaxPayerNumber: '',
 
 mailing_tax_country : '',
 
@@ -1124,15 +1120,13 @@ cnicofUB: '',
 
 ub_investor: '',
 
-investor : '',
+nominee : '',
 
 cnicofguardian: '',
 
 dob:'',
 
 under_age : false,
-
-ub_investor: '',
 
 cnic:'',
 
@@ -1646,13 +1640,9 @@ us_state : this.us_state,
 
 us_pobox : this.us_pobox,
 
-tx_Identification : this.tx_Identification,
-
-tx_reason : this.tx_reason,
+isTaxPayer : this.isTaxPayer,
 
 reason : this.reason,
-
-
 
 mailing_address : this.mailing_address,
 
@@ -1674,7 +1664,7 @@ mailing_tob : this.mailing_tob,
 
 mailing_pob : this.mailing_pob,
 
-mailing_tin: this.mailing_tin,
+TaxPayerNumber: this.TaxPayerNumber,
 
 mailing_tax_country : this.mailing_tax_country,
 
@@ -1682,7 +1672,7 @@ specificreason : this.specificreason,
 
 ub_investor : this.ub_investor,
 
-investor : this.investor,
+nominee : this.nominee,
 
 cnic : this.cnic,
 
@@ -1742,24 +1732,21 @@ soi:this.soi.split('|')[1],
 
 address : this.address,
 
-country1_id  :this.resi_country.split('|')[0],
+resi_country_id :this.resi_country.split('|')[0],
 
-country1 : this.resi_country.split('|')[1],
+resi_country_txt : this.resi_country.split('|')[1],
 
-country1_id  :this.us_resi_country.split('|')[0],
+resi_city_id  :this.resi_city.split('|')[0],	
 
-country1 : this.us_resi_country.split('|')[1],
+resi_city_txt : this.resi_city.split('|')[1],
 
+crs_country_id  :this.us_resi_country.split('|')[0],
 
+crs_country_txt : this.us_resi_country.split('|')[1],
 
-city1_id  :this.resi_city.split('|')[0],	
+crs_city_id  :this.us_resi_city.split('|')[0],	
 
-city1 : this.resi_city.split('|')[1],
-
-city1_id  :this.us_resi_city.split('|')[0],	
-
-city1 : this.us_resi_city.split('|')[1],
-
+crs_city_txt : this.us_resi_city.split('|')[1],
 
 zakat : this.zakat,
 

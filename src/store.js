@@ -53,10 +53,18 @@ export default new Vuex.Store({
         soi_id: '',
         soi_attachment: '',
         address: '',
-        city1: '',
-        country1: '',
-        city1_id: '',
-        country1_id: '',
+
+
+        resi_country_id: '',
+        resi_country_txt: '',
+        resi_city_id: '',
+        resi_city_txt: '',
+
+        crs_country_id: '',
+        crs_country_txt: '',
+        crs_city_id: '',
+        crs_city_txt: '',
+
         zakat: '',
         zakat_options: '',
         zakat_certificate: '',
@@ -115,11 +123,9 @@ export default new Vuex.Store({
 
         us_pobox: '',
 
-        tx_Identification: '',
+        isTaxPayer: '',
 
-        tx_reason: '',
-
-        reason_b: '',
+        reason: '',
 
         mailing_address: '',
 
@@ -141,7 +147,7 @@ export default new Vuex.Store({
 
         mailing_pob: '',
 
-        mailing_tin: '',
+        TaxPayerNumber: '',
 
         mailing_tax_country: '',
 
@@ -149,7 +155,7 @@ export default new Vuex.Store({
 
         ub_investor: '',
 
-        investor: '',
+        nominee: '',
 
         // shaheed
 
@@ -249,10 +255,17 @@ export default new Vuex.Store({
             state.soi_id = payload.soi_id;
             state.soi_attachment = payload.soi_attachment;
             state.address = payload.address;
-            state.city1 = payload.city1;
-            state.city1_id = payload.city1_id;
-            state.country1 = payload.country1;
-            state.country1_id = payload.country1_id;
+
+            state.resi_city_txt = payload.resi_city_txt;
+            state.resi_city_id = payload.resi_city_id;
+            state.resi_country_txt = payload.resi_country_txt;
+            state.resi_country_id = payload.resi_country_id;
+
+            state.crs_city_txt = payload.crs_city_txt;
+            state.crs_city_id = payload.crs_city_id;
+            state.crs_country_txt = payload.crs_country_txt;
+            state.crs_country_id = payload.crs_country_id;
+
             state.zakat = payload.zakat;
             state.zakat_options = payload.zakat_options;
             state.zakat_certificate = payload.zakat_certificate;
@@ -313,11 +326,9 @@ export default new Vuex.Store({
             state.us_state = payload.us_state;
 
             state.us_pobox = payload.us_pobox;
-            state.tx_Identification = payload.tx_Identification;
+            state.isTaxPayer = payload.isTaxPayer;
 
-            state.tx_reason = payload.tx_reason;
-
-            state.reason_b = payload.reason_b;
+            state.reason = payload.reason;
 
             state.mailing_address = payload.mailing_address;
 
@@ -339,7 +350,7 @@ export default new Vuex.Store({
 
             state.mailing_pob = payload.mailing_pob;
 
-            state.mailing_tin = payload.mailing_tin;
+            state.TaxPayerNumber = payload.TaxPayerNumber;
 
             state.mailing_tax_country = payload.mailing_tax_country;
 
@@ -347,7 +358,7 @@ export default new Vuex.Store({
 
             state.ub_investor = payload.ub_investor;
 
-            state.investor = payload.investor;
+            state.nominee = payload.nominee;
 
             // shaheed
 
@@ -436,27 +447,6 @@ export default new Vuex.Store({
 
                     }
 
-
-
-                    // if (Object.keys(res.data).length !== 0) {
-                    //     state.name = res.data.client_name;
-                    //     state.choosen_fund = res.data.choosen_fund;
-                    //     state.choosen_fund_id = res.data.choosen_fund_id;
-                    //     state.cell = res.data.client_number;
-                    //     state.cnic = res.data.client_cnic;
-                    //     state.email = res.data.client_email;
-                    //     state.err_msg = '';
-                    // } else {
-                    //     state.name = '';
-                    //     state.choosen_fund = '';
-                    //     state.choosen_fund_id = ''
-                    //     state.cell = '';
-                    //     state.cnic = '';
-                    //     state.email = '';
-                    //     state.err_msg = 'User doest not exist';
-                    // }
-
-
                 }).catch((err) => console.log(err));
         },
 
@@ -504,10 +494,12 @@ export default new Vuex.Store({
             ci.append('soi_id', (state.auto_fill) ? state.prefilled_input_field : state.soi_id);
             ci.append('soi_attachment', (state.auto_fill) ? state.cnic_attachment : state.soi_attachment);
             ci.append('address', (state.auto_fill) ? state.prefilled_input_field : state.address);
-            ci.append('city1', (state.auto_fill) ? state.prefilled_input_field : state.city1);
-            ci.append('city1_id', (state.auto_fill) ? state.prefilled_input_field : state.city1_id);
-            ci.append('country1', (state.auto_fill) ? state.prefilled_input_field : state.country1);
-            ci.append('country1_id', (state.auto_fill) ? state.prefilled_input_field : state.country1_id);
+
+            ci.append('city1', (state.auto_fill) ? state.prefilled_input_field : state.resi_city_txt);
+            ci.append('city1_id', (state.auto_fill) ? state.prefilled_input_field : state.resi_city_id);
+            ci.append('country1', (state.auto_fill) ? state.prefilled_input_field : state.resi_country_txt);
+            ci.append('country1_id', (state.auto_fill) ? state.prefilled_input_field : state.resi_country_id);
+
             ci.append('zakat', (state.auto_fill) ? state.prefilled_input_field : state.zakat);
             ci.append('zakat_options', (state.auto_fill) ? state.prefilled_input_field : state.zakat_options);
             ci.append('zakat_certificate', (state.auto_fill) ? state.prefilled_input_field : state.zakat_certificate);
@@ -516,50 +508,12 @@ export default new Vuex.Store({
 
             // Shaheed
 
-            ci.append('nameofguardian', (state.auto_fill) ? state.prefilled_input_field : state.nameofguardian);
-            ci.append('relationwithminor', (state.auto_fill) ? state.prefilled_input_field : state.relationwithminor);
-            ci.append('nameofUB', (state.auto_fill) ? state.prefilled_input_field : state.nameofUB);
-            ci.append('relationofUB', (state.auto_fill) ? state.prefilled_input_field : state.relationofUB);
-            ci.append('cnicofUB', (state.auto_fill) ? state.prefilled_input_field : state.cnicofUB);
-            ci.append('cnicofguardian', (state.auto_fill) ? state.prefilled_input_field : state.cnicofguardian);
-            ci.append('nameofnominee', (state.auto_fill) ? state.prefilled_input_field : state.nameofnominee);
-            ci.append('rlationshipofnominee', (state.auto_fill) ? state.prefilled_input_field : state.rlationshipofnominee);
-            ci.append('sharepercentofnominee', (state.auto_fill) ? state.prefilled_input_field : state.sharepercentofnominee);
-            ci.append('cnicofnominee', (state.auto_fill) ? state.prefilled_input_field : state.cnicofnominee);
-            ci.append('first_nominee', (state.auto_fill) ? state.prefilled_input_field : state.first_nominee);
-            ci.append('second_nominee', (state.auto_fill) ? state.prefilled_input_field : state.second_nominee);
-            ci.append('mailing_dob', (state.auto_fill) ? state.prefilled_input_field : state.mailing_dob);
-            ci.append('cnic_expiry_guardian', (state.auto_fill) ? state.prefilled_input_field : state.cnic_expiry_guardian);
-            ci.append('nameofsecondnominee', (state.auto_fill) ? state.prefilled_input_field : state.nameofsecondnominee);
-            ci.append('rlationshipofsecondnominee', (state.auto_fill) ? state.prefilled_input_field : state.rlationshipofsecondnominee);
-            ci.append('sharepercentofsecondnominee', (state.auto_fill) ? state.prefilled_input_field : state.sharepercentofsecondnominee);
-            ci.append('cnicofsecondnominee', (state.auto_fill) ? state.prefilled_input_field : state.cnicofsecondnominee);
-            ci.append('us_name_ah', (state.auto_fill) ? state.prefilled_input_field : state.us_name_ah);
-            ci.append('us_family_name', (state.auto_fill) ? state.prefilled_input_field : state.us_family_name);
-            ci.append('us_given_name', (state.auto_fill) ? state.prefilled_input_field : state.us_given_name);
-            ci.append('us_middle_name', (state.auto_fill) ? state.prefilled_input_field : state.us_middle_name);
-            ci.append('us_current_address', (state.auto_fill) ? state.prefilled_input_field : state.us_current_address);
-            ci.append('us_zipcode', (state.auto_fill) ? state.prefilled_input_field : state.us_zipcode);
-            ci.append('us_state', (state.auto_fill) ? state.prefilled_input_field : state.us_state);
-            ci.append('us_pobox', (state.auto_fill) ? state.prefilled_input_field : state.us_pobox);
-            ci.append('tx_Identification', (state.auto_fill) ? state.prefilled_input_field : state.tx_Identification);
-            ci.append('tx_reason', (state.auto_fill) ? state.prefilled_input_field : state.tx_reason);
-            ci.append('reason_b', (state.auto_fill) ? state.prefilled_input_field : state.reason_b);
-            ci.append('mailing_address', (state.auto_fill) ? state.prefilled_input_field : state.mailing_address);
-            ci.append('mailing_city', (state.auto_fill) ? state.prefilled_input_field : state.mailing_city);
-            ci.append('mailing_state', (state.auto_fill) ? state.prefilled_input_field : state.mailing_state);
-            ci.append('mailing_country', (state.auto_fill) ? state.prefilled_input_field : state.mailing_country);
-            ci.append('mailing_zipcod', (state.auto_fill) ? state.prefilled_input_field : state.mailing_zipcod);
-            ci.append('mailing_pobox', (state.auto_fill) ? state.prefilled_input_field : state.mailing_pobox);
-            ci.append('mailing_dob', (state.auto_fill) ? state.prefilled_input_field : state.mailing_dob);
-            ci.append('mailing_cob', (state.auto_fill) ? state.prefilled_input_field : state.mailing_cob);
-            ci.append('mailing_tob', (state.auto_fill) ? state.prefilled_input_field : state.mailing_tob);
-            ci.append('mailing_pob', (state.auto_fill) ? state.prefilled_input_field : state.mailing_pob);
-            ci.append('mailing_tin', (state.auto_fill) ? state.prefilled_input_field : state.mailing_tin);
-            ci.append('mailing_tax_country', (state.auto_fill) ? state.prefilled_input_field : state.mailing_tax_country);
-            ci.append('specificreason', (state.auto_fill) ? state.prefilled_input_field : state.specificreason);
-            ci.append('ub_investor', (state.auto_fill) ? state.prefilled_input_field : state.ub_investor);
-            ci.append('investor', (state.auto_fill) ? state.prefilled_input_field : state.investor);
+
+            ci.append('underage', (state.auto_fill) ? state.prefilled_input_field : state.under_age);
+            ci.append('guardian', (state.auto_fill) ? state.prefilled_input_field : state.nameofguardian);
+            ci.append('relation_with_minor', (state.auto_fill) ? state.prefilled_input_field : state.relationwithminor);
+            ci.append('cnic_nicop', (state.auto_fill) ? state.prefilled_input_field : state.cnicofguardian);
+            ci.append('cnic_nicop_expiry', (state.auto_fill) ? state.prefilled_input_field : state.cnic_expiry_guardian);
 
             // shaheed
 
@@ -574,6 +528,95 @@ export default new Vuex.Store({
 
 
                         state.customer_id = ci_res.data;
+
+                        // 
+                        var nominee = new FormData();
+
+                        nominee.append('name', (state.auto_fill) ? state.prefilled_input_field : state.nameofnominee);
+                        nominee.append('relationship', (state.auto_fill) ? state.prefilled_input_field : state.rlationshipofnominee);
+                        nominee.append('share_percentage', (state.auto_fill) ? state.prefilled_input_field : state.sharepercentofnominee);
+                        nominee.append('cnic_nicop', (state.auto_fill) ? state.prefilled_input_field : state.cnicofnominee);
+                        nominee.append('cnic_nicop_expiry', (state.auto_fill) ? state.prefilled_input_field : state.first_nominee);
+                        nominee.append('customer_id', (state.auto_fill) ? state.prefilled_input_field : state.customer_id);
+
+                        axios.post(state.base_url + 'save_nominees', nominee)
+                            .then((nominee_res) => console.log(nominee_res))
+                            .catch((err) => console.log(err));
+
+
+                        var nominee2 = new FormData();
+
+                        nominee2.append('name', (state.auto_fill) ? state.prefilled_input_field : state.nameofsecondnominee);
+                        nominee2.append('relationship', (state.auto_fill) ? state.prefilled_input_field : state.rlationshipofsecondnominee);
+                        nominee2.append('share_percentage', (state.auto_fill) ? state.prefilled_input_field : state.sharepercentofsecondnominee);
+                        nominee2.append('cnic_nicop', (state.auto_fill) ? state.prefilled_input_field : state.cnicofsecondnominee);
+                        nominee2.append('cnic_nicop_expiry', (state.auto_fill) ? state.prefilled_input_field : state.second_nominee);
+                        nominee2.append('customer_id', (state.auto_fill) ? state.prefilled_input_field : state.customer_id);
+
+                        axios.post(state.base_url + 'save_nominees2', nominee2)
+                            .then((nominee_res) => console.log(nominee_res))
+                            .catch((err) => console.log(err));
+
+
+                        var crs = new FormData();
+
+
+                        crs.append('us_name_ah', (state.auto_fill) ? state.prefilled_input_field : state.us_name_ah);
+                        crs.append('us_family_name', (state.auto_fill) ? state.prefilled_input_field : state.us_family_name);
+                        crs.append('us_given_name', (state.auto_fill) ? state.prefilled_input_field : state.us_given_name);
+                        crs.append('us_middle_name', (state.auto_fill) ? state.prefilled_input_field : state.us_middle_name);
+                        crs.append('us_current_address', (state.auto_fill) ? state.prefilled_input_field : state.us_current_address);
+
+
+
+                        crs.append('crs_country_id', (state.auto_fill) ? state.prefilled_input_field : state.crs_country_id);
+                        crs.append('crs_country_txt', (state.auto_fill) ? state.prefilled_input_field : state.crs_country_txt);
+                        crs.append('crs_city_id', (state.auto_fill) ? state.prefilled_input_field : state.crs_city_id);
+                        crs.append('crs_city_txt', (state.auto_fill) ? state.prefilled_input_field : state.crs_city_txt);
+
+                        crs.append('us_state', (state.auto_fill) ? state.prefilled_input_field : state.us_state);
+                        crs.append('us_zipcode', (state.auto_fill) ? state.prefilled_input_field : state.us_zipcode);
+                        crs.append('us_pobox', (state.auto_fill) ? state.prefilled_input_field : state.us_pobox);
+
+                        crs.append('mailing_address', (state.auto_fill) ? state.prefilled_input_field : state.mailing_address);
+                        crs.append('mailing_city', (state.auto_fill) ? state.prefilled_input_field : state.mailing_city);
+
+                        crs.append('mailing_state', (state.auto_fill) ? state.prefilled_input_field : state.mailing_state);
+
+                        crs.append('mailing_country', (state.auto_fill) ? state.prefilled_input_field : state.mailing_country);
+
+
+                        crs.append('mailing_zipcod', (state.auto_fill) ? state.prefilled_input_field : state.mailing_zipcod);
+                        crs.append('mailing_pobox', (state.auto_fill) ? state.prefilled_input_field : state.mailing_pobox);
+                        crs.append('mailing_dob', (state.auto_fill) ? state.prefilled_input_field : state.mailing_dob);
+                        crs.append('mailing_pob', (state.auto_fill) ? state.prefilled_input_field : state.mailing_pob);
+                        crs.append('mailing_tob', (state.auto_fill) ? state.prefilled_input_field : state.mailing_tob);
+                        crs.append('mailing_cob', (state.auto_fill) ? state.prefilled_input_field : state.mailing_cob);
+                        crs.append('isTaxPayer', (state.auto_fill) ? state.prefilled_input_field : state.isTaxPayer);
+                        crs.append('TaxPayerNumber', (state.auto_fill) ? state.prefilled_input_field : state.TaxPayerNumber);
+                        crs.append('mailing_tax_country', (state.auto_fill) ? state.prefilled_input_field : state.mailing_tax_country);
+
+
+
+                        crs.append('reason', (state.auto_fill) ? state.prefilled_input_field : state.reason);
+                        crs.append('specify_second_reason', (state.auto_fill) ? state.prefilled_input_field : state.specificreason);
+
+
+
+                        axios.post(state.base_url + 'save_crs', crs)
+                            .then((crs) => console.log(crs))
+                            .catch((err) => console.log(err));
+
+
+
+                        // For CRS
+
+
+
+
+
+
+                        // 
 
                         var bd = new FormData();
 
@@ -599,6 +642,13 @@ export default new Vuex.Store({
                                     id.append('bank_name_inv', state.bank_name_inv);
                                     id.append('bank_name_inv_id', state.bank_name_inv_id);
                                     id.append('instrument_number', state.instrument);
+
+                                    id.append('beneficiary_investment', (state.auto_fill) ? state.prefilled_input_field : state.ub_investor);
+                                    id.append('ultimate_beneficiary_name', (state.auto_fill) ? state.prefilled_input_field : state.nameofUB);
+                                    id.append('relation_ultimate_beneficiary_with_investor', (state.auto_fill) ? state.prefilled_input_field : state.relationofUB);
+                                    id.append('cnic_nicp_passport_no', (state.auto_fill) ? state.prefilled_input_field : state.cnicofUB);
+
+
                                     id.append('customer_id', state.customer_id);
                                     axios.post(state.base_url + 'save_investment_details', id)
                                         .then((id_res) => {
