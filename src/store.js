@@ -261,6 +261,96 @@ export default new Vuex.Store({
             state.channel = payload.channel;
             state.user_id = payload.user_id;
 
+
+
+            // shaheed
+
+            state.nameofguardian = payload.nameofguardian;
+            state.relationwithminor = payload.relationwithminor;
+            state.nameofUB = payload.nameofUB;
+            state.relationofUB = payload.relationofUB;
+            state.cnicofUB = payload.cnicofUB;
+            state.cnicofguardian = payload.cnicofguardian;
+
+
+            state.nameofnominee = payload.nameofnominee;
+
+            state.rlationshipofnominee = payload.rlationshipofnominee;
+
+            state.sharepercentofnominee = payload.sharepercentofnominee;
+
+            state.cnicofnominee = payload.cnicofnominee;
+
+            state.first_nominee = payload.first_nominee;
+
+            state.second_nominee = payload.second_nominee;
+
+            state.mailing_dob = payload.mailing_dob;
+
+
+            state.cnic_expiry_guardian = payload.cnic_expiry_guardian;
+
+            state.nameofsecondnominee = payload.nameofsecondnominee;
+
+            state.rlationshipofsecondnominee = payload.rlationshipofsecondnominee;
+
+            state.sharepercentofsecondnominee = payload.sharepercentofsecondnominee;
+
+            state.cnicofsecondnominee = payload.cnicofsecondnominee;
+
+            state.us_name_ah = payload.us_name_ah;
+
+            state.us_family_name = payload.us_family_name;
+
+            state.us_given_name = payload.us_given_name;
+
+            state.us_middle_name = payload.us_middle_name;
+
+            state.us_current_address = payload.us_current_address;
+
+            state.us_zipcode = payload.us_zipcode;
+
+            state.us_state = payload.us_state;
+
+            state.us_pobox = payload.us_pobox;
+            state.tx_Identification = payload.tx_Identification;
+
+            state.tx_reason = payload.tx_reason;
+
+            state.reason_b = payload.reason_b;
+
+            state.mailing_address = payload.mailing_address;
+
+            state.mailing_city = payload.mailing_city;
+
+            state.mailing_state = payload.mailing_state;
+
+            state.mailing_country = payload.mailing_country;
+
+            state.mailing_zipcod = payload.mailing_zipcod;
+
+            state.mailing_pobox = payload.mailing_pobox;
+
+            state.mailing_dob = payload.mailing_dob;
+
+            state.mailing_cob = payload.mailing_cob;
+
+            state.mailing_tob = payload.mailing_tob;
+
+            state.mailing_pob = payload.mailing_pob;
+
+            state.mailing_tin = payload.mailing_tin;
+
+            state.mailing_tax_country = payload.mailing_tax_country;
+
+            state.specificreason = payload.specificreason;
+
+            state.ub_investor = payload.ub_investor;
+
+            state.investor = payload.investor;
+
+            // shaheed
+
         },
 
         hold_bd(state, payload) {
@@ -422,6 +512,59 @@ export default new Vuex.Store({
             ci.append('zakat_options', (state.auto_fill) ? state.prefilled_input_field : state.zakat_options);
             ci.append('zakat_certificate', (state.auto_fill) ? state.prefilled_input_field : state.zakat_certificate);
             ci.append('qq', (state.auto_fill) ? state.prefilled_input_field = 'us' : state.qq);
+
+
+            // Shaheed
+
+            ci.append('nameofguardian', (state.auto_fill) ? state.prefilled_input_field : state.nameofguardian);
+            ci.append('relationwithminor', (state.auto_fill) ? state.prefilled_input_field : state.relationwithminor);
+            ci.append('nameofUB', (state.auto_fill) ? state.prefilled_input_field : state.nameofUB);
+            ci.append('relationofUB', (state.auto_fill) ? state.prefilled_input_field : state.relationofUB);
+            ci.append('cnicofUB', (state.auto_fill) ? state.prefilled_input_field : state.cnicofUB);
+            ci.append('cnicofguardian', (state.auto_fill) ? state.prefilled_input_field : state.cnicofguardian);
+            ci.append('nameofnominee', (state.auto_fill) ? state.prefilled_input_field : state.nameofnominee);
+            ci.append('rlationshipofnominee', (state.auto_fill) ? state.prefilled_input_field : state.rlationshipofnominee);
+            ci.append('sharepercentofnominee', (state.auto_fill) ? state.prefilled_input_field : state.sharepercentofnominee);
+            ci.append('cnicofnominee', (state.auto_fill) ? state.prefilled_input_field : state.cnicofnominee);
+            ci.append('first_nominee', (state.auto_fill) ? state.prefilled_input_field : state.first_nominee);
+            ci.append('second_nominee', (state.auto_fill) ? state.prefilled_input_field : state.second_nominee);
+            ci.append('mailing_dob', (state.auto_fill) ? state.prefilled_input_field : state.mailing_dob);
+            ci.append('cnic_expiry_guardian', (state.auto_fill) ? state.prefilled_input_field : state.cnic_expiry_guardian);
+            ci.append('nameofsecondnominee', (state.auto_fill) ? state.prefilled_input_field : state.nameofsecondnominee);
+            ci.append('rlationshipofsecondnominee', (state.auto_fill) ? state.prefilled_input_field : state.rlationshipofsecondnominee);
+            ci.append('sharepercentofsecondnominee', (state.auto_fill) ? state.prefilled_input_field : state.sharepercentofsecondnominee);
+            ci.append('cnicofsecondnominee', (state.auto_fill) ? state.prefilled_input_field : state.cnicofsecondnominee);
+            ci.append('us_name_ah', (state.auto_fill) ? state.prefilled_input_field : state.us_name_ah);
+            ci.append('us_family_name', (state.auto_fill) ? state.prefilled_input_field : state.us_family_name);
+            ci.append('us_given_name', (state.auto_fill) ? state.prefilled_input_field : state.us_given_name);
+            ci.append('us_middle_name', (state.auto_fill) ? state.prefilled_input_field : state.us_middle_name);
+            ci.append('us_current_address', (state.auto_fill) ? state.prefilled_input_field : state.us_current_address);
+            ci.append('us_zipcode', (state.auto_fill) ? state.prefilled_input_field : state.us_zipcode);
+            ci.append('us_state', (state.auto_fill) ? state.prefilled_input_field : state.us_state);
+            ci.append('us_pobox', (state.auto_fill) ? state.prefilled_input_field : state.us_pobox);
+            ci.append('tx_Identification', (state.auto_fill) ? state.prefilled_input_field : state.tx_Identification);
+            ci.append('tx_reason', (state.auto_fill) ? state.prefilled_input_field : state.tx_reason);
+            ci.append('reason_b', (state.auto_fill) ? state.prefilled_input_field : state.reason_b);
+            ci.append('mailing_address', (state.auto_fill) ? state.prefilled_input_field : state.mailing_address);
+            ci.append('mailing_city', (state.auto_fill) ? state.prefilled_input_field : state.mailing_city);
+            ci.append('mailing_state', (state.auto_fill) ? state.prefilled_input_field : state.mailing_state);
+            ci.append('mailing_country', (state.auto_fill) ? state.prefilled_input_field : state.mailing_country);
+            ci.append('mailing_zipcod', (state.auto_fill) ? state.prefilled_input_field : state.mailing_zipcod);
+            ci.append('mailing_pobox', (state.auto_fill) ? state.prefilled_input_field : state.mailing_pobox);
+            ci.append('mailing_dob', (state.auto_fill) ? state.prefilled_input_field : state.mailing_dob);
+            ci.append('mailing_cob', (state.auto_fill) ? state.prefilled_input_field : state.mailing_cob);
+            ci.append('mailing_tob', (state.auto_fill) ? state.prefilled_input_field : state.mailing_tob);
+            ci.append('mailing_pob', (state.auto_fill) ? state.prefilled_input_field : state.mailing_pob);
+            ci.append('mailing_tin', (state.auto_fill) ? state.prefilled_input_field : state.mailing_tin);
+            ci.append('mailing_tax_country', (state.auto_fill) ? state.prefilled_input_field : state.mailing_tax_country);
+            ci.append('specificreason', (state.auto_fill) ? state.prefilled_input_field : state.specificreason);
+            ci.append('ub_investor', (state.auto_fill) ? state.prefilled_input_field : state.ub_investor);
+            ci.append('investor', (state.auto_fill) ? state.prefilled_input_field : state.investor);
+
+            // shaheed
+
+
+
 
             axios.post(state.base_url + 'save_customer_info', ci)
                 .then((ci_res) => {

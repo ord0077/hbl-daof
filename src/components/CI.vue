@@ -693,32 +693,37 @@ v-model="date2"
          <br>
          <v-radio class="mx-3 r_label" label="Yes"  value="yes"></v-radio>
          <v-radio label="No" value="no" class="mx-3 r_label"></v-radio>
-         </v-radio-group >
+         </v-radio-group>
+         </v-flex>
+         
+         <v-flex md12 xs12 sm12>
+             <v-layout v-if="mailing_address == 'yes'" wrap>
+
+            <v-flex  xs6 md6 >
+            <v-text-field class="red_class" v-model="mailing_city" :rules="GroupByRequired" label="Town/City/Province" :value="Caps"></v-text-field>
+            </v-flex>
+
+            <v-flex xs6 md6 >
+            <v-text-field class="red_class" v-model="mailing_state" :rules="GroupByRequired" label="County/State" :value="Caps"></v-text-field>
+            </v-flex>
+
+            <v-flex xs4 md4 >
+            <v-text-field class="red_class" v-model="mailing_country" :rules="GroupByRequired" label="Country" :value="Caps"></v-text-field>
+            </v-flex>
+
+            <v-flex xs4 md4 >
+            <v-text-field class="red_class" v-model="mailing_zipcod"  label="Postal/Zip Code" :value="Caps"></v-text-field>
+            </v-flex>
+
+            <v-flex xs4 md4 >
+            <v-text-field class="red_class" v-model="mailing_pobox"  label="PO Box" :value="Caps"></v-text-field>
+            </v-flex>
+
+         </v-layout>
          </v-flex>
 
 
-            <v-flex v-if="mailing_address == 'yes'" xs6 md6 >
-         <v-text-field class="red_class" v-model="mailing_city" :rules="GroupByRequired" label="Town/City/Province" :value="Caps"></v-text-field>
-         </v-flex>
-
-            <v-flex v-if="mailing_address == 'yes'" xs6 md6 >
-         <v-text-field class="red_class" v-model="mailing_state" :rules="GroupByRequired" label="County/State" :value="Caps"></v-text-field>
-         </v-flex>
-
-         <v-flex v-if="mailing_address == 'yes'" xs6 md6 >
-         <v-text-field class="red_class" v-model="mailing_country" :rules="GroupByRequired" label="Country" :value="Caps"></v-text-field>
-         </v-flex>
-
-         <v-flex v-if="mailing_address == 'yes'" xs6 md6 >
-         <v-text-field class="red_class" v-model="mailing_zipcod"  label="Postal/Zip Code" :value="Caps"></v-text-field>
-         </v-flex>
-
-         <v-flex v-if="mailing_address == 'yes'" xs6 md6 >
-         <v-text-field class="red_class" v-model="mailing_pobox"  label="PO Box" :value="Caps"></v-text-field>
-         </v-flex>
-
-
-            <v-flex    xs6 md6 class="dob"> 
+         <v-flex xs6 md6 class="dob"> 
          <v-menu v-model="menu6" :close-on-content-click="false" max-width="290">
          <template v-slot:activator="{ on }">
          <v-text-field
@@ -778,21 +783,22 @@ v-model="date2"
 
 
          <v-flex v-if="tx_Identification == 'no'"   xs12 md12 >
-         <v-radio-group v-model="reason_b"  row :rules="GroupByRequired">
+         <v-radio-group v-model="reason"   :rules="GroupByRequired">
          <v-label class="pa-md-1" >Taxpayer Identification Number (TIN)</v-label>
 
-         <br>
-         <v-radio    class="mx-4 pa-md-1 r_label " label="Reason A- The country where the Account Holder is resident does not issue TIN to its residents."  value="a"> </v-radio>
-         <v-radio   class="mx-4 pa-md-1 r_label " label="Reason B - The Account Holder is otherwise unable to obtain a TIN (please explain why Account Holder is unable to obtain a TIN in the below table if you have selected the reason)."  value="b"> </v-radio>
+          <v-radio 
+            class="mx-4 pa-md-1 r_label" 
+            v-for="(r,i) in getReasons" 
+            :key="i" 
+            :label="r.reason_label"
+            :value="r.reason_value"
+         ></v-radio>
 
-
-         <v-flex v-if="reason_b == 'b'" xs12 md12 >
+         <v-flex v-if="GetSecondReasonField" xs12 md12>         
          <v-text-field class="red_class" v-model="specificreason" :rules="GroupByRequired" label="Specify reason" :value="Caps"></v-text-field>
          </v-flex>
 
-         <v-radio   class="mx-4  pa-md-1 r_label " label="Reason C - No TIN is required (Note: only this reason if the authorities of the country of residence for tax purposed entered above do not require the TIN to be disclosed)."  value="c"> </v-radio>
-
-         </v-radio-group >
+         </v-radio-group>
          </v-flex>
          </v-layout>
          </v-container>
@@ -804,6 +810,7 @@ v-model="date2"
 
 
     <v-flex xs12>
+     
     <!-- <div v-if="err" style="color: #ff1744 !important;">{{err}}</div> -->
     <v-btn class="primary" :loading="loading" @click="submit">Continue</v-btn>
     </v-flex>
@@ -827,6 +834,32 @@ import moment from 'moment/src/moment';
 export default {
 
 computed:{
+
+GetSecondReasonField () {
+
+         return this.getReasons.filter(v => v.reason_value == this.reason && v.reason_b == true).length > 0
+
+},
+
+getReasons(){
+         return [
+            {
+               reason_label : 'Reason A- The country where the Account Holder is resident does not issue TIN to its residents.',
+               reason_value :'The country where the Account Holder is resident does not issue TIN to its residents.'
+            },
+            {
+               reason_b : true,
+               reason_label : 'Reason B - The Account Holder is otherwise unable to obtain a TIN (please explain why Account Holder is unable to obtain a TIN in the below table if you have selected the reason).',
+               reason_value :'The Account Holder is otherwise unable to obtain a TIN (please explain why Account Holder is unable to obtain a TIN in the below table if you have selected the reason).'
+            },
+             {
+               reason_label : 'Reason C - No TIN is required (Note: only this reason if the authorities of the country of residence for tax purposed entered above do not require the TIN to be disclosed).',
+               reason_value :'No TIN is required (Note: only this reason if the authorities of the country of residence for tax purposed entered above do not require the TIN to be disclosed).'
+            },
+          
+         ];   
+},
+
 
 get_bd(){
 
@@ -1054,7 +1087,7 @@ tx_Identification : '',
 
 tx_reason : '',
 
-reason_b : '',
+reason : '',
 
 
 
@@ -1298,6 +1331,8 @@ userScore : '',
 
 
 methods: {
+
+
 
 check_user_age() {
 
@@ -1615,7 +1650,7 @@ tx_Identification : this.tx_Identification,
 
 tx_reason : this.tx_reason,
 
-reason_b : this.reason_b,
+reason : this.reason,
 
 
 
