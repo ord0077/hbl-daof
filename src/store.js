@@ -94,7 +94,7 @@ export default new Vuex.Store({
 
         second_nominee: '',
 
-        mailing_dob: '',
+
 
 
         cnic_expiry_guardian: '',
@@ -107,21 +107,21 @@ export default new Vuex.Store({
 
         cnicofsecondnominee: '',
 
-        us_name_ah: '',
+        crs_name_account_holder: '',
 
-        us_family_name: '',
+        crs_family_name: '',
 
-        us_given_name: '',
+        crs_given_name: '',
 
-        us_middle_name: '',
+        crs_middle_name: '',
 
-        us_current_address: '',
+        crs_current_address: '',
 
-        us_zipcode: '',
+        crs_zipcode: '',
 
-        us_state: '',
+        crs_state: '',
 
-        us_pobox: '',
+        crs_pobox: '',
 
         isTaxPayer: '',
 
@@ -135,7 +135,7 @@ export default new Vuex.Store({
 
         mailing_country: '',
 
-        mailing_zipcod: '',
+        mailing_zipcode: '',
 
         mailing_pobox: '',
 
@@ -151,7 +151,7 @@ export default new Vuex.Store({
 
         mailing_tax_country: '',
 
-        specificreason: '',
+        specify_second_reason: '',
 
         ub_investor: '',
 
@@ -311,21 +311,21 @@ export default new Vuex.Store({
 
             state.cnicofsecondnominee = payload.cnicofsecondnominee;
 
-            state.us_name_ah = payload.us_name_ah;
+            state.crs_name_account_holder = payload.crs_name_account_holder;
 
-            state.us_family_name = payload.us_family_name;
+            state.crs_family_name = payload.crs_family_name;
 
-            state.us_given_name = payload.us_given_name;
+            state.crs_given_name = payload.crs_given_name;
 
-            state.us_middle_name = payload.us_middle_name;
+            state.crs_middle_name = payload.crs_middle_name;
 
-            state.us_current_address = payload.us_current_address;
+            state.crs_current_address = payload.crs_current_address;
 
-            state.us_zipcode = payload.us_zipcode;
+            state.crs_zipcode = payload.crs_zipcode;
 
-            state.us_state = payload.us_state;
+            state.crs_state = payload.crs_state;
 
-            state.us_pobox = payload.us_pobox;
+            state.crs_pobox = payload.crs_pobox;
             state.isTaxPayer = payload.isTaxPayer;
 
             state.reason = payload.reason;
@@ -338,7 +338,7 @@ export default new Vuex.Store({
 
             state.mailing_country = payload.mailing_country;
 
-            state.mailing_zipcod = payload.mailing_zipcod;
+            state.mailing_zipcode = payload.mailing_zipcode;
 
             state.mailing_pobox = payload.mailing_pobox;
 
@@ -354,7 +354,7 @@ export default new Vuex.Store({
 
             state.mailing_tax_country = payload.mailing_tax_country;
 
-            state.specificreason = payload.specificreason;
+            state.specify_second_reason = payload.specify_second_reason;
 
             state.ub_investor = payload.ub_investor;
 
@@ -560,12 +560,14 @@ export default new Vuex.Store({
 
                         var crs = new FormData();
 
+                        crs.append('customer_id', (state.auto_fill) ? state.prefilled_input_field : state.customer_id);
 
-                        crs.append('us_name_ah', (state.auto_fill) ? state.prefilled_input_field : state.us_name_ah);
-                        crs.append('us_family_name', (state.auto_fill) ? state.prefilled_input_field : state.us_family_name);
-                        crs.append('us_given_name', (state.auto_fill) ? state.prefilled_input_field : state.us_given_name);
-                        crs.append('us_middle_name', (state.auto_fill) ? state.prefilled_input_field : state.us_middle_name);
-                        crs.append('us_current_address', (state.auto_fill) ? state.prefilled_input_field : state.us_current_address);
+
+                        crs.append('crs_name_account_holder', (state.auto_fill) ? state.prefilled_input_field : state.crs_name_account_holder);
+                        crs.append('crs_family_name', (state.auto_fill) ? state.prefilled_input_field : state.crs_family_name);
+                        crs.append('crs_given_name', (state.auto_fill) ? state.prefilled_input_field : state.crs_given_name);
+                        crs.append('crs_middle_name', (state.auto_fill) ? state.prefilled_input_field : state.crs_middle_name);
+                        crs.append('crs_current_address', (state.auto_fill) ? state.prefilled_input_field : state.crs_current_address);
 
 
 
@@ -574,9 +576,9 @@ export default new Vuex.Store({
                         crs.append('crs_city_id', (state.auto_fill) ? state.prefilled_input_field : state.crs_city_id);
                         crs.append('crs_city_txt', (state.auto_fill) ? state.prefilled_input_field : state.crs_city_txt);
 
-                        crs.append('us_state', (state.auto_fill) ? state.prefilled_input_field : state.us_state);
-                        crs.append('us_zipcode', (state.auto_fill) ? state.prefilled_input_field : state.us_zipcode);
-                        crs.append('us_pobox', (state.auto_fill) ? state.prefilled_input_field : state.us_pobox);
+                        crs.append('crs_state', (state.auto_fill) ? state.prefilled_input_field : state.crs_state);
+                        crs.append('crs_zipcode', (state.auto_fill) ? state.prefilled_input_field : state.crs_zipcode);
+                        crs.append('crs_pobox', (state.auto_fill) ? state.prefilled_input_field : state.crs_pobox);
 
                         crs.append('mailing_address', (state.auto_fill) ? state.prefilled_input_field : state.mailing_address);
                         crs.append('mailing_city', (state.auto_fill) ? state.prefilled_input_field : state.mailing_city);
@@ -586,7 +588,7 @@ export default new Vuex.Store({
                         crs.append('mailing_country', (state.auto_fill) ? state.prefilled_input_field : state.mailing_country);
 
 
-                        crs.append('mailing_zipcod', (state.auto_fill) ? state.prefilled_input_field : state.mailing_zipcod);
+                        crs.append('mailing_zipcode', (state.auto_fill) ? state.prefilled_input_field : state.mailing_zipcode);
                         crs.append('mailing_pobox', (state.auto_fill) ? state.prefilled_input_field : state.mailing_pobox);
                         crs.append('mailing_dob', (state.auto_fill) ? state.prefilled_input_field : state.mailing_dob);
                         crs.append('mailing_pob', (state.auto_fill) ? state.prefilled_input_field : state.mailing_pob);
@@ -596,10 +598,8 @@ export default new Vuex.Store({
                         crs.append('TaxPayerNumber', (state.auto_fill) ? state.prefilled_input_field : state.TaxPayerNumber);
                         crs.append('mailing_tax_country', (state.auto_fill) ? state.prefilled_input_field : state.mailing_tax_country);
 
-
-
                         crs.append('reason', (state.auto_fill) ? state.prefilled_input_field : state.reason);
-                        crs.append('specify_second_reason', (state.auto_fill) ? state.prefilled_input_field : state.specificreason);
+                        crs.append('specify_second_reason', (state.auto_fill) ? state.prefilled_input_field : state.specify_second_reason);
 
 
 
@@ -608,15 +608,7 @@ export default new Vuex.Store({
                             .catch((err) => console.log(err));
 
 
-
                         // For CRS
-
-
-
-
-
-
-                        // 
 
                         var bd = new FormData();
 

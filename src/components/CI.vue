@@ -627,34 +627,34 @@ v-model="date2"
     <v-layout wrap>
 
          <v-flex xs4 md6 >
-         <v-text-field class="red_class" v-model="us_name_ah" :rules="GroupByRequired" label="Name of Account Holder " :value="Caps"></v-text-field>
+         <v-text-field class="red_class" v-model="crs_name_account_holder" :rules="GroupByRequired" label="Name of Account Holder " :value="Caps"></v-text-field>
          </v-flex>
 
          
          <v-flex  xs6 md6 >
-         <v-text-field class="red_class" v-model="us_family_name" :rules="GroupByRequired" label="Family Name of Surname(s) Title" :value="Caps"></v-text-field>
+         <v-text-field class="red_class" v-model="crs_family_name" :rules="GroupByRequired" label="Family Name of Surname(s) Title" :value="Caps"></v-text-field>
          </v-flex>
 
          
          <v-flex  xs6 md6 >
-         <v-text-field class="red_class" v-model="us_given_name" :rules="GroupByRequired" label="First or Given Name " :value="Caps"></v-text-field>
+         <v-text-field class="red_class" v-model="crs_given_name" :rules="GroupByRequired" label="First or Given Name " :value="Caps"></v-text-field>
          </v-flex>
 
          
          <v-flex  xs6 md6 >
-         <v-text-field class="red_class" v-model="us_middle_name" :rules="GroupByRequired" label="Middle Name(s)" :value="Caps"></v-text-field>
+         <v-text-field class="red_class" v-model="crs_middle_name" :rules="GroupByRequired" label="Middle Name(s)" :value="Caps"></v-text-field>
          </v-flex>
 
 
          <v-flex  xs6 md6 >
-         <v-text-field class="red_class" v-model="us_current_address" :rules="GroupByRequired" label="Current Residential Address" :value="Caps"></v-text-field>
+         <v-text-field class="red_class" v-model="crs_current_address" :rules="GroupByRequired" label="Current Residential Address" :value="Caps"></v-text-field>
          </v-flex>
 
             <v-flex  xs6>
 
             <v-autocomplete
-            @change="getCityByCountry('uc_resi',us_resi_country)"  
-            v-model="us_resi_country" 
+            @change="getCityByCountry('uc_resi',crs_resi_country)"  
+            v-model="crs_resi_country" 
             :items="countries" 
             :rules="GroupByRequired"
             required
@@ -662,12 +662,12 @@ v-model="date2"
             </v-flex>
 
             <v-flex  xs6 md6 >
-           <v-text-field class="red_class" v-model="us_state" :rules="GroupByRequired" label="County/State " :value="Caps"></v-text-field>
+           <v-text-field class="red_class" v-model="crs_state" :rules="GroupByRequired" label="County/State " :value="Caps"></v-text-field>
          </v-flex>
 
             <v-flex  xs6>
             <v-autocomplete    
-            v-model="us_resi_city" 
+            v-model="crs_resi_city" 
             :items="resi_cities_by_id" 
             :rules="GroupByRequired"
             required
@@ -677,11 +677,11 @@ v-model="date2"
 
             
             <v-flex  xs6 md6 >
-         <v-text-field class="red_class" v-model="us_zipcode"  label="Postal/Zip Code" :value="Caps"></v-text-field>
+         <v-text-field class="red_class" v-model="crs_zipcode"  label="Postal/Zip Code" :value="Caps"></v-text-field>
          </v-flex>
 
          <v-flex  xs6 md6 >
-         <v-text-field class="red_class" v-model="us_pobox"  label="PO Box" :value="Caps"></v-text-field>
+         <v-text-field class="red_class" v-model="crs_pobox"  label="PO Box" :value="Caps"></v-text-field>
          </v-flex>
 
 
@@ -712,7 +712,7 @@ v-model="date2"
             </v-flex>
 
             <v-flex xs4 md4 >
-            <v-text-field class="red_class" v-model="mailing_zipcod"  label="Postal/Zip Code" :value="Caps"></v-text-field>
+            <v-text-field class="red_class" v-model="mailing_zipcode"  label="Postal/Zip Code" :value="Caps"></v-text-field>
             </v-flex>
 
             <v-flex xs4 md4 >
@@ -795,7 +795,7 @@ v-model="date2"
          ></v-radio>
 
          <v-flex v-if="GetSecondReasonField" xs12 md12>         
-         <v-text-field class="red_class" v-model="specificreason" :rules="GroupByRequired" label="Specify reason" :value="Caps"></v-text-field>
+         <v-text-field class="red_class" v-model="specify_second_reason" :rules="GroupByRequired" label="Specify reason" :value="Caps"></v-text-field>
          </v-flex>
 
          </v-radio-group>
@@ -804,6 +804,8 @@ v-model="date2"
          </v-container>
 
          </v-flex>
+
+     
 <!-- SA end Other than USA & Pakistan -->
 
 
@@ -908,28 +910,28 @@ return {
 
 
 
-"us_name_ah" : this.us_name_ah =this.us_name_ah.toUpperCase(),
-"us_family_name" : this.us_family_name =this.us_family_name.toUpperCase(),
-"us_given_name" : this.us_given_name = this.us_given_name.toUpperCase(),
-"us_middle_name" : this.us_middle_name = this.us_middle_name.toUpperCase(),
-"us_current_address" : this.us_current_address = this.us_current_address.toUpperCase(),
-"us_state" : this.us_state = this.us_state.toUpperCase(),
-"us_zipcode" : this.us_zipcode = this.us_zipcode.toUpperCase(),
-"us_pobox" : this.us_pobox = this.us_pobox.toUpperCase(),
+"crs_name_account_holder" : this.crs_name_account_holder =this.crs_name_account_holder.toUpperCase(),
+"crs_family_name" : this.crs_family_name =this.crs_family_name.toUpperCase(),
+"crs_given_name" : this.crs_given_name = this.crs_given_name.toUpperCase(),
+"crs_middle_name" : this.crs_middle_name = this.crs_middle_name.toUpperCase(),
+"crs_current_address" : this.crs_current_address = this.crs_current_address.toUpperCase(),
+"crs_state" : this.crs_state = this.crs_state.toUpperCase(),
+"crs_zipcode" : this.crs_zipcode = this.crs_zipcode.toUpperCase(),
+"crs_pobox" : this.crs_pobox = this.crs_pobox.toUpperCase(),
 
 "mailing_city" : this.mailing_city = this.mailing_city.toUpperCase(),
 "mailing_state" : this.mailing_state = this.mailing_state.toUpperCase(),
 "mailing_country" : this.mailing_country = this.mailing_country.toUpperCase(),
-"mailing_zipcod" : this.mailing_zipcod = this.mailing_zipcod.toUpperCase(),
+"mailing_zipcode" : this.mailing_zipcode = this.mailing_zipcode.toUpperCase(),
 "mailing_pobox" : this.mailing_pobox = this.mailing_pobox.toUpperCase(),
-"mailing_dob" : this.mailing_dob = this.mailing_dob.toUpperCase(),
+
 "mailing_cob" : this.mailing_cob = this.mailing_cob.toUpperCase(),
 
 "mailing_tob" : this.mailing_tob = this.mailing_tob.toUpperCase(),
 "mailing_pob" : this.mailing_pob = this.mailing_pob.toUpperCase(),
 
 "mailing_tax_country" : this.mailing_tax_country = this.mailing_tax_country.toUpperCase(),
-"specificreason" : this.specificreason = this.specificreason.toUpperCase(),
+"specify_second_reason" : this.specify_second_reason = this.specify_second_reason.toUpperCase(),
 "TaxPayerNumber" : this.TaxPayerNumber = this.TaxPayerNumber.toUpperCase(),
 
 
@@ -1067,21 +1069,21 @@ sharepercentofsecondnominee: '',
 
 cnicofsecondnominee: '',
 
-us_name_ah: '',
+crs_name_account_holder: '',
 
-us_family_name: '',
+crs_family_name: '',
 
-us_given_name: '',
+crs_given_name: '',
 
-us_middle_name: '',
+crs_middle_name: '',
 
-us_current_address: '',
+crs_current_address: '',
 
-us_zipcode: '',
+crs_zipcode: '',
 
-us_state : '',
+crs_state : '',
 
-us_pobox: '',
+crs_pobox: '',
 
 isTaxPayer : '',
 
@@ -1096,11 +1098,11 @@ mailing_state: '',
 
 mailing_country: '',
 
-mailing_zipcod : '',
+mailing_zipcode : '',
 
 mailing_pobox: '',
 
-mailing_dob : '',
+
 
 mailing_cob: '',
 
@@ -1112,7 +1114,7 @@ TaxPayerNumber: '',
 
 mailing_tax_country : '',
 
-specificreason : '',
+specify_second_reason : '',
 
 relationofUB: '',
 
@@ -1208,11 +1210,11 @@ pob_country:'',
 
 resi_city:'',
 
-us_resi_city:'',
+crs_resi_city:'',
 
 resi_country:'',
 
-us_resi_country:'',
+crs_resi_country:'',
 
 pob_cities_by_id:[],
 
@@ -1576,6 +1578,8 @@ submit(){
 
 let payload = {
 
+  
+  customer_id :2,
 name : this.name,
 
 fathername : this.fathername,
@@ -1624,21 +1628,21 @@ sharepercentofsecondnominee : this.sharepercentofsecondnominee,
 
 cnicofsecondnominee : this.cnicofsecondnominee,
 
-us_name_ah: this.us_name_ah,
+crs_name_account_holder: this.crs_name_account_holder,
 
-us_family_name : this.us_family_name,
+crs_family_name : this.crs_family_name,
 
-us_given_name : this.us_given_name,
+crs_given_name : this.crs_given_name,
 
-us_middle_name : this.us_middle_name,
+crs_middle_name : this.crs_middle_name,
 
-us_current_address : this.us_current_address,
+crs_current_address : this.crs_current_address,
 
-us_zipcode : this.us_zipcode,
+crs_zipcode : this.crs_zipcode,
 
-us_state : this.us_state,
+crs_state : this.crs_state,
 
-us_pobox : this.us_pobox,
+crs_pobox : this.crs_pobox,
 
 isTaxPayer : this.isTaxPayer,
 
@@ -1652,11 +1656,11 @@ mailing_state : this.mailing_state,
 
 mailing_country : this.mailing_country,
 
-mailing_zipcod : this.mailing_zipcod,
+mailing_zipcode : this.mailing_zipcode,
 
 mailing_pobox : this.mailing_pobox,
 
-mailing_dob : this.mailing_dob,
+
 
 mailing_cob : this.mailing_cob,
 
@@ -1668,7 +1672,7 @@ TaxPayerNumber: this.TaxPayerNumber,
 
 mailing_tax_country : this.mailing_tax_country,
 
-specificreason : this.specificreason,
+specify_second_reason : this.specify_second_reason,
 
 ub_investor : this.ub_investor,
 
@@ -1740,13 +1744,13 @@ resi_city_id  :this.resi_city.split('|')[0],
 
 resi_city_txt : this.resi_city.split('|')[1],
 
-crs_country_id  :this.us_resi_country.split('|')[0],
+crs_country_id  :this.crs_resi_country.split('|')[0],
 
-crs_country_txt : this.us_resi_country.split('|')[1],
+crs_country_txt : this.crs_resi_country.split('|')[1],
 
-crs_city_id  :this.us_resi_city.split('|')[0],	
+crs_city_id  :this.crs_resi_city.split('|')[0],	
 
-crs_city_txt : this.us_resi_city.split('|')[1],
+crs_city_txt : this.crs_resi_city.split('|')[1],
 
 zakat : this.zakat,
 
@@ -1763,6 +1767,12 @@ channel : this.channel,
 user_id : this.user_id,
 
 };
+
+
+// console.log(payload);
+
+// axios.post('http://127.0.0.1:8000/api/save_crs',payload)
+//       .then(res => console.log(res.data));
 
 
 this.$store.dispatch('hold_ci',payload);
