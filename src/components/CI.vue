@@ -1011,6 +1011,9 @@ data () {
 return {
 //col: 12,
 
+hblURLs : 'https://daofservice-live.hblasset.com/DigitalAccountOpenTillVerify.asmx',
+// hblURLs : 'https://daofservice.hblasset.com/DigitalAccountOpenTillVerify.asmx',
+
 show : true,
 
 date1: '',
@@ -1299,7 +1302,7 @@ userScore : '',
       </soap12:Body>
       </soap12:Envelope>`;
 
-      axios.post('https://daofservice.hblasset.com/DigitalAccountOpenTillVerify.asmx?op=GetCountry',
+      axios.post(hblURLs + '?op=GetCountry',
       xmls,
       {headers:
       {'Content-Type': 'text/xml'}
@@ -1352,7 +1355,7 @@ let xmls1=`<?xml version="1.0" encoding="utf-8"?>
   </soap:Body>
 </soap:Envelope>`;
 
-axios.post('https://daofservice.hblasset.com/DigitalAccountOpenTillVerify.asmx?op=GetMaritalStatus',
+axios.post(hblURLs + '?op=GetMaritalStatus',
 xmls1,
 {headers:
 {'Content-Type': 'text/xml'}
@@ -1385,7 +1388,7 @@ let xmls1=`<?xml version="1.0" encoding="utf-8"?>
   </soap:Body>
 </soap:Envelope>`;
 
-axios.post('https://daofservice.hblasset.com/DigitalAccountOpenTillVerify.asmx?op=GetSourceOfIncome',
+axios.post(hblURLs + '?op=GetSourceOfIncome',
 xmls1,
 {headers:
 {'Content-Type': 'text/xml'}
@@ -1417,7 +1420,7 @@ let xmls1=`<?xml version="1.0" encoding="utf-8"?>
   </soap:Body>
 </soap:Envelope>`;
 
-axios.post('https://daofservice.hblasset.com/DigitalAccountOpenTillVerify.asmx?op=GetSalaryAnnualIncome',
+axios.post(hblURLs + '?op=GetSalaryAnnualIncome',
 xmls1,
 {headers:
 {'Content-Type': 'text/xml'}
@@ -1450,7 +1453,7 @@ let xmls1=`<?xml version="1.0" encoding="utf-8"?>
   </soap:Body>
 </soap:Envelope>`;
 
-axios.post('https://daofservice.hblasset.com/DigitalAccountOpenTillVerify.asmx?op=GetOccupation',
+axios.post(hblURLs + '?op=GetOccupation',
 xmls1,
 {headers:
 {'Content-Type': 'text/xml'}
@@ -1485,7 +1488,7 @@ let xmls1=`<?xml version="1.0" encoding="utf-8"?>
 </soap12:Body>
 </soap12:Envelope>`;
 
-axios.post('https://daofservice.hblasset.com/DigitalAccountOpenTillVerify.asmx?op=getCityCodeByCountryID',
+axios.post(hblURLs + '?op=getCityCodeByCountryID',
 xmls1,
 {headers:
 {'Content-Type': 'text/xml'}

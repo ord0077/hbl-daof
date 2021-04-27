@@ -285,6 +285,10 @@ return  {
 },
 data () {
 return {
+  
+hblURLs : 'https://daofservice-live.hblasset.com/DigitalAccountOpenTillVerify.asmx',
+// hblURLs : hblURLs + '',
+
 test:'',
 disabled:'',      
 inv_fileSize:false,
@@ -404,7 +408,7 @@ val && setTimeout(() => (this.$refs.picker.activePicker = 'YEAR'))
    </soap:Body>
    </soap:Envelope>`;
 
-   axios.post('https://daofservice.hblasset.com/DigitalAccountOpenTillVerify.asmx?op=GetBank',
+   axios.post(hblURLs + '?op=GetBank',
    xmls,
    {headers:
    {'Content-Type': 'text/xml'}
@@ -440,7 +444,7 @@ let xmls1=`<?xml version="1.0" encoding="utf-8"?>
   </soap:Body>
 </soap:Envelope>`;
 
-axios.post('https://daofservice.hblasset.com/DigitalAccountOpenTillVerify.asmx?op=GetPaymentMode',
+axios.post(hblURLs + '?op=GetPaymentMode',
 xmls1,
 {headers:
 {'Content-Type': 'text/xml'}
@@ -473,7 +477,7 @@ let xmls1=`<?xml version="1.0" encoding="utf-8"?>
   </soap:Body>
 </soap:Envelope>`;
 
-axios.post('https://daofservice.hblasset.com/DigitalAccountOpenTillVerify.asmx?op=GetAccountStatementFrequency',
+axios.post(hblURLs + '?op=GetAccountStatementFrequency',
 xmls1,
 {headers:
 {'Content-Type': 'text/xml'}
@@ -506,7 +510,7 @@ let xmls1=`<?xml version="1.0" encoding="utf-8"?>
   </soap:Body>
 </soap:Envelope>`;
 
-axios.post('https://daofservice.hblasset.com/DigitalAccountOpenTillVerify.asmx?op=GetFund',
+axios.post(hblURLs + '?op=GetFund',
 xmls1,
 {headers:
 {'Content-Type': 'text/xml'}
@@ -541,7 +545,7 @@ let xmls1=`<?xml version="1.0" encoding="utf-8"?>
   </soap12:Body>
 </soap12:Envelope>`;
 
-axios.post('https://daofservice.hblasset.com/DigitalAccountOpenTillVerify.asmx?op=GetBankBranchByBankID',
+axios.post(hblURLs + '?op=GetBankBranchByBankID',
 xmls1,
 {headers:
 {'Content-Type': 'text/xml'}
