@@ -8,18 +8,18 @@
 
             <div class="mt-2">
                 <blockquote> 
-                  {{thanks_msg}}
+                  {{thanks_msg}} 
                     <br>
                     <br>
-                   <span class="red--text"> (this is a dummy message and banner)</span>
+                   <!-- <span class="red--text"> (this is a dummy message and banner)</span> -->
                 </blockquote>
 
                 
                 </div>
       </blockquote>
- <v-layout align-center justify-center>
+ <!-- <v-layout align-center justify-center>
      <v-img max-height="250" src="@/assets/add_image.jpeg" aspect-ratio="1.7" contain></v-img>
-  </v-layout>      
+  </v-layout>       -->
 </v-flex>
 
    </v-layout>

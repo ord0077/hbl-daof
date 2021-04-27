@@ -7,9 +7,9 @@ Vue.use(Vuex)
 export default new Vuex.Store({
     state: {
         // base_url:'https://orangeroomdigital.com/salesapp/public/api/',
-        // base_url:'https://salesappuat.hblasset.com/api/',  
+        base_url:'https://salesappuat.hblasset.com/api/',  
 
-        base_url: 'http://127.0.0.1:8000/api/',
+        // base_url: 'http://localhost:8000/api/',
         // base_url:'http://localhost/pro/salesapp/public/api/',  
         // base_url:'https://salesapp.hblasset.com/api/',  
         choosen_fund: '',
@@ -119,7 +119,7 @@ export default new Vuex.Store({
 
         crs_zipcode: '',
 
-        crs_state: '',
+        // crs_state: '',
 
         crs_pobox: '',
 
@@ -131,7 +131,7 @@ export default new Vuex.Store({
 
         mailing_city: '',
 
-        mailing_state: '',
+        // mailing_state: '',
 
         mailing_country: '',
 
@@ -323,7 +323,7 @@ export default new Vuex.Store({
 
             state.crs_zipcode = payload.crs_zipcode;
 
-            state.crs_state = payload.crs_state;
+            // state.crs_state = payload.crs_state;
 
             state.crs_pobox = payload.crs_pobox;
             state.isTaxPayer = payload.isTaxPayer;
@@ -334,7 +334,7 @@ export default new Vuex.Store({
 
             state.mailing_city = payload.mailing_city;
 
-            state.mailing_state = payload.mailing_state;
+            // state.mailing_state = payload.mailing_state;
 
             state.mailing_country = payload.mailing_country;
 
@@ -422,8 +422,11 @@ export default new Vuex.Store({
         },
 
         get_basic_details(state, payload) {
+
             axios.get(state.base_url + 'get_risk_data/' + payload)
                 .then((res) => {
+
+                    console.log(res.data)
 
 
 
@@ -432,7 +435,7 @@ export default new Vuex.Store({
                     } else {
 
                         if (!res.data.risk_profile_filled) {
-                            state.err_msg = 'Risk profiler doest not filled';
+                            state.err_msg = 'No Risk Profile questionnaire submitted for this CNIC';
                         } else {
 
                             state.err_msg = '';
@@ -576,14 +579,14 @@ export default new Vuex.Store({
                         crs.append('crs_city_id', (state.auto_fill) ? state.prefilled_input_field : state.crs_city_id);
                         crs.append('crs_city_txt', (state.auto_fill) ? state.prefilled_input_field : state.crs_city_txt);
 
-                        crs.append('crs_state', (state.auto_fill) ? state.prefilled_input_field : state.crs_state);
+                        // crs.append('crs_state', (state.auto_fill) ? state.prefilled_input_field : state.crs_state);
                         crs.append('crs_zipcode', (state.auto_fill) ? state.prefilled_input_field : state.crs_zipcode);
                         crs.append('crs_pobox', (state.auto_fill) ? state.prefilled_input_field : state.crs_pobox);
 
                         crs.append('mailing_address', (state.auto_fill) ? state.prefilled_input_field : state.mailing_address);
                         crs.append('mailing_city', (state.auto_fill) ? state.prefilled_input_field : state.mailing_city);
 
-                        crs.append('mailing_state', (state.auto_fill) ? state.prefilled_input_field : state.mailing_state);
+                        // crs.append('mailing_state', (state.auto_fill) ? state.prefilled_input_field : state.mailing_state);
 
                         crs.append('mailing_country', (state.auto_fill) ? state.prefilled_input_field : state.mailing_country);
 

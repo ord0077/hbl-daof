@@ -661,26 +661,26 @@ v-model="date2"
             item-text="CNT_OFFICALNAME" item-value="CNT_COUNTRYCODE" single-line auto label="Country "></v-autocomplete>
             </v-flex>
 
-            <v-flex  xs6 md6 >
+            <!-- <v-flex  xs6 md6 >
            <v-text-field class="red_class" v-model="crs_state" :rules="GroupByRequired" label="County/State " :value="Caps"></v-text-field>
-         </v-flex>
+         </v-flex> -->
 
-            <v-flex  xs6>
+            <v-flex  xs4>
             <v-autocomplete    
             v-model="crs_resi_city" 
             :items="resi_cities_by_id" 
             :rules="GroupByRequired"
             required
-            item-text="CTY_FULLNAME" item-value="CTY_CITYCODE" single-line auto label="Town/City/Province "></v-autocomplete>
+            item-text="CTY_FULLNAME" item-value="CTY_CITYCODE" single-line auto label="Town/City/Province/Count/State"></v-autocomplete>
             </v-flex>
 
 
             
-            <v-flex  xs6 md6 >
+            <v-flex  xs4 md4 >
          <v-text-field class="red_class" v-model="crs_zipcode"  label="Postal/Zip Code" :value="Caps"></v-text-field>
          </v-flex>
 
-         <v-flex  xs6 md6 >
+         <v-flex  xs4 md4 >
          <v-text-field class="red_class" v-model="crs_pobox"  label="PO Box" :value="Caps"></v-text-field>
          </v-flex>
 
@@ -700,22 +700,22 @@ v-model="date2"
              <v-layout v-if="mailing_address == 'yes'" wrap>
 
             <v-flex  xs6 md6 >
-            <v-text-field class="red_class" v-model="mailing_city" :rules="GroupByRequired" label="Town/City/Province" :value="Caps"></v-text-field>
+            <v-text-field class="red_class" v-model="mailing_city" :rules="GroupByRequired" label="Town/City/Province/Count/State" :value="Caps"></v-text-field>
             </v-flex>
+
+            <!-- <v-flex xs6 md6 >
+            <v-text-field class="red_class" v-model="mailing_state" :rules="GroupByRequired" label="County/State" :value="Caps"></v-text-field>
+            </v-flex> -->
 
             <v-flex xs6 md6 >
-            <v-text-field class="red_class" v-model="mailing_state" :rules="GroupByRequired" label="County/State" :value="Caps"></v-text-field>
-            </v-flex>
-
-            <v-flex xs4 md4 >
             <v-text-field class="red_class" v-model="mailing_country" :rules="GroupByRequired" label="Country" :value="Caps"></v-text-field>
             </v-flex>
 
-            <v-flex xs4 md4 >
+            <v-flex xs6 md >
             <v-text-field class="red_class" v-model="mailing_zipcode"  label="Postal/Zip Code" :value="Caps"></v-text-field>
             </v-flex>
 
-            <v-flex xs4 md4 >
+            <v-flex xs6 md6 >
             <v-text-field class="red_class" v-model="mailing_pobox"  label="PO Box" :value="Caps"></v-text-field>
             </v-flex>
 
@@ -915,12 +915,12 @@ return {
 "crs_given_name" : this.crs_given_name = this.crs_given_name.toUpperCase(),
 "crs_middle_name" : this.crs_middle_name = this.crs_middle_name.toUpperCase(),
 "crs_current_address" : this.crs_current_address = this.crs_current_address.toUpperCase(),
-"crs_state" : this.crs_state = this.crs_state.toUpperCase(),
+// "crs_state" : this.crs_state = this.crs_state.toUpperCase(),
 "crs_zipcode" : this.crs_zipcode = this.crs_zipcode.toUpperCase(),
 "crs_pobox" : this.crs_pobox = this.crs_pobox.toUpperCase(),
 
 "mailing_city" : this.mailing_city = this.mailing_city.toUpperCase(),
-"mailing_state" : this.mailing_state = this.mailing_state.toUpperCase(),
+// "mailing_state" : this.mailing_state = this.mailing_state.toUpperCase(),
 "mailing_country" : this.mailing_country = this.mailing_country.toUpperCase(),
 "mailing_zipcode" : this.mailing_zipcode = this.mailing_zipcode.toUpperCase(),
 "mailing_pobox" : this.mailing_pobox = this.mailing_pobox.toUpperCase(),
@@ -1081,7 +1081,7 @@ crs_current_address: '',
 
 crs_zipcode: '',
 
-crs_state : '',
+// crs_state : '',
 
 crs_pobox: '',
 
@@ -1094,7 +1094,7 @@ mailing_address : '',
 
 mailing_city: '',
 
-mailing_state: '',
+// mailing_state: '',
 
 mailing_country: '',
 
@@ -1640,7 +1640,7 @@ crs_current_address : this.crs_current_address,
 
 crs_zipcode : this.crs_zipcode,
 
-crs_state : this.crs_state,
+//crs_state : this.crs_state,
 
 crs_pobox : this.crs_pobox,
 
@@ -1652,7 +1652,7 @@ mailing_address : this.mailing_address,
 
 mailing_city : this.mailing_city,
 
-mailing_state : this.mailing_state,
+// mailing_state : this.mailing_state,
 
 mailing_country : this.mailing_country,
 
