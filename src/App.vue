@@ -8,8 +8,8 @@
 <v-btn
 class="mr-10 primary"
 text
-href="https://salesappuat.hblasset.com/">
-<span>Dashboard (DEV)</span>
+href="https://salesapp.hblasset.com/">
+<span>Dashboard</span>
 </v-btn>
 </v-app-bar>
 
