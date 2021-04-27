@@ -7,9 +7,10 @@ Vue.use(Vuex)
 export default new Vuex.Store({
     state: {
         // base_url:'https://orangeroomdigital.com/salesapp/public/api/',
-        // base_url:'https://salesappuat.hblasset.com/api/',  
+        base_url: 'https://salesappuat.hblasset.com/api/',
 
         base_url: 'http://localhost:8000/api/',
+        // base_url: 'http://localhost:8000/api/',
         // base_url:'http://localhost/pro/salesapp/public/api/',  
         // base_url:'https://salesapp.hblasset.com/api/',  
         choosen_fund: '',
