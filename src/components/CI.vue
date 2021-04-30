@@ -1302,7 +1302,7 @@ userScore : '',
       </soap12:Body>
       </soap12:Envelope>`;
 
-      axios.post(hblURLs + '?op=GetCountry',
+      axios.post(this.hblURLs + '?op=GetCountry',
       xmls,
       {headers:
       {'Content-Type': 'text/xml'}
@@ -1355,7 +1355,7 @@ let xmls1=`<?xml version="1.0" encoding="utf-8"?>
   </soap:Body>
 </soap:Envelope>`;
 
-axios.post(hblURLs + '?op=GetMaritalStatus',
+axios.post(this.hblURLs + '?op=GetMaritalStatus',
 xmls1,
 {headers:
 {'Content-Type': 'text/xml'}
@@ -1388,7 +1388,7 @@ let xmls1=`<?xml version="1.0" encoding="utf-8"?>
   </soap:Body>
 </soap:Envelope>`;
 
-axios.post(hblURLs + '?op=GetSourceOfIncome',
+axios.post(this.hblURLs + '?op=GetSourceOfIncome',
 xmls1,
 {headers:
 {'Content-Type': 'text/xml'}
@@ -1420,7 +1420,7 @@ let xmls1=`<?xml version="1.0" encoding="utf-8"?>
   </soap:Body>
 </soap:Envelope>`;
 
-axios.post(hblURLs + '?op=GetSalaryAnnualIncome',
+axios.post(this.hblURLs + '?op=GetSalaryAnnualIncome',
 xmls1,
 {headers:
 {'Content-Type': 'text/xml'}
@@ -1453,7 +1453,7 @@ let xmls1=`<?xml version="1.0" encoding="utf-8"?>
   </soap:Body>
 </soap:Envelope>`;
 
-axios.post(hblURLs + '?op=GetOccupation',
+axios.post(this.hblURLs + '?op=GetOccupation',
 xmls1,
 {headers:
 {'Content-Type': 'text/xml'}
@@ -1488,7 +1488,7 @@ let xmls1=`<?xml version="1.0" encoding="utf-8"?>
 </soap12:Body>
 </soap12:Envelope>`;
 
-axios.post(hblURLs + '?op=getCityCodeByCountryID',
+axios.post(this.hblURLs + '?op=getCityCodeByCountryID',
 xmls1,
 {headers:
 {'Content-Type': 'text/xml'}

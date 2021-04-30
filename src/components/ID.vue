@@ -408,7 +408,7 @@ val && setTimeout(() => (this.$refs.picker.activePicker = 'YEAR'))
    </soap:Body>
    </soap:Envelope>`;
 
-   axios.post(hblURLs + '?op=GetBank',
+   axios.post(this.hblURLs + '?op=GetBank',
    xmls,
    {headers:
    {'Content-Type': 'text/xml'}
@@ -444,7 +444,7 @@ let xmls1=`<?xml version="1.0" encoding="utf-8"?>
   </soap:Body>
 </soap:Envelope>`;
 
-axios.post(hblURLs + '?op=GetPaymentMode',
+axios.post(this.hblURLs + '?op=GetPaymentMode',
 xmls1,
 {headers:
 {'Content-Type': 'text/xml'}
@@ -477,7 +477,7 @@ let xmls1=`<?xml version="1.0" encoding="utf-8"?>
   </soap:Body>
 </soap:Envelope>`;
 
-axios.post(hblURLs + '?op=GetAccountStatementFrequency',
+axios.post(this.hblURLs + '?op=GetAccountStatementFrequency',
 xmls1,
 {headers:
 {'Content-Type': 'text/xml'}
@@ -510,7 +510,7 @@ let xmls1=`<?xml version="1.0" encoding="utf-8"?>
   </soap:Body>
 </soap:Envelope>`;
 
-axios.post(hblURLs + '?op=GetFund',
+axios.post(this.hblURLs + '?op=GetFund',
 xmls1,
 {headers:
 {'Content-Type': 'text/xml'}
@@ -545,7 +545,7 @@ let xmls1=`<?xml version="1.0" encoding="utf-8"?>
   </soap12:Body>
 </soap12:Envelope>`;
 
-axios.post(hblURLs + '?op=GetBankBranchByBankID',
+axios.post(this.hblURLs + '?op=GetBankBranchByBankID',
 xmls1,
 {headers:
 {'Content-Type': 'text/xml'}
